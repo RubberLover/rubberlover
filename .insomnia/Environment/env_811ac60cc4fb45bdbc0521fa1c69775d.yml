@@ -1,0 +1,14 @@
+_id: env_811ac60cc4fb45bdbc0521fa1c69775d
+type: Environment
+parentId: env_3023d2059c53fc359817b557dd66de3f3b8ad8b3
+modified: 1661256870131
+created: 1661256768605
+name: RubberLoverApi
+data:
+  baseUrl: http://localhost:2112/api/v1
+dataPropertyOrder:
+  "&":
+    - baseUrl
+color: null
+isPrivate: false
+metaSortKey: 1661256768605
