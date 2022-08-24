@@ -1,18 +1,24 @@
 _id: req_4657f21d776a4dddaf044229f6a7b2c0
 type: Request
 parentId: fld_6dd40aca45564e4394384cded7b9da6e
-modified: 1661274622619
+modified: 1661308067694
 created: 1661256736767
-url: "{{ _.baseUrl }}/tires"
-name: Insert Tire
+url: "{{ _.baseUrl }}/tires/submit"
+name: Submit Tire Request
 description: ""
 method: POST
 body:
   mimeType: application/json
-  text: |-
+  text: >-
     {
-    	"name":"thunder burt2",
-    	"weight":"300"
+    	"name":"thunder burt",
+    	"brand":"schwalbe",
+    	"weight":"300",
+    	"weightUnits": "g",
+    	"width": 2.1,
+    	"wheelSize": "650b",
+    	"tireType": "tubelessHooked",
+    	"sources": ["https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url", "https://www.bicyclerollingresistance.com/road-bike-reviews"]
     }
 parameters: []
 headers:
