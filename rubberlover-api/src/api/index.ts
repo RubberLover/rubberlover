@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 
-import tires from './tires';
-import users from './users';
+import tires from './tires.controller';
+import users from './users.controller';
 
 const router = express.Router();
 
