@@ -28,6 +28,7 @@ export function userAuth(req: Request, res: Response, next: NextFunction) {
         if (decodedToken.role !== "user" || decodedToken.role !== "admin") {
           return res.status(401).json({ message: "Not authorized" })
         } else {
+          res.locals.name = decodedToken.name;
           next()
         }
       }
@@ -49,6 +50,7 @@ export function adminAuth(req: Request, res: Response, next: NextFunction) {
         if (decodedToken.role !== "admin") {
           return res.status(401).json({ message: "Not authorized" })
         } else {
+          res.locals.name = decodedToken.name;
           next()
         }
       }

@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import UserModel from '../mongo/models/user';
+import UserModel from '../mongo/models/user.model';
 import jwt from 'jsonwebtoken';
 import jwtSecret from '../jwt';
 const router = express.Router();
@@ -17,25 +17,25 @@ router.get('/', async (req: Request, res: Response) => {
 router.post('/register', async (req: Request, res: Response) => {
     const user = new UserModel(req.body);
     bcrypt.hash(user.password, 10).then(async (hash: string) => {
-        user.password = hash;
-        const maxAge = 24 * 60 * 60;
-        const token = jwt.sign(
-          { id: user._id, emailAddress: user.emailAddress, role: user.role },
-          jwtSecret,
-          {
-            expiresIn: maxAge, // 3hrs in sec
+          user.password = hash;
+          const maxAge = 24 * 60 * 60;
+          const token = jwt.sign(
+            { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
+            jwtSecret,
+            {
+              expiresIn: maxAge, // 3hrs in sec
+            }
+          );
+          res.cookie("jwt", token, {
+            httpOnly: true,
+            maxAge: maxAge * 1000, // 3hrs in ms
+          });
+          try {
+              await user.save();
+              res.send(user);
+          } catch (error) {
+              res.status(500).send(error);
           }
-        );
-        res.cookie("jwt", token, {
-          httpOnly: true,
-          maxAge: maxAge * 1000, // 3hrs in ms
-        });
-        try {
-            await user.save();
-            res.send(user);
-        } catch (error) {
-            res.status(500).send(error);
-        }
     });
 });
 
@@ -60,7 +60,7 @@ router.post('/login', async (req: Request, res: Response) => {
                 if (result) {
                     const maxAge = 24 * 60 * 60;
                     const token = jwt.sign(
-                      { id: user._id, emailAddress: user.emailAddress, role: user.role },
+                      { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
                         jwtSecret,
                       {
                         expiresIn: maxAge, // 3hrs in sec
