@@ -1,0 +1,21 @@
+_id: req_d21e162146ca497abf1ba556ff1cce15
+type: Request
+parentId: fld_b40a526232874741af596c26a77d0c5f
+modified: 1661267385407
+created: 1661267361208
+url: "{{_.baseUrl}}/users"
+name: Get Users
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1661261964548.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
