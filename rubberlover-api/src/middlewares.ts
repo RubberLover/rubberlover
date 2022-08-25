@@ -25,11 +25,11 @@ export function userAuth(req: Request, res: Response, next: NextFunction) {
       if (err) {
         return res.status(401).json({ message: "Not authorized" })
       } else {
-        if (decodedToken.role !== "user" || decodedToken.role !== "admin") {
-          return res.status(401).json({ message: "Not authorized" })
-        } else {
+        if (decodedToken.role == "user" || decodedToken.role == "admin") {
           res.locals.name = decodedToken.name;
-          next()
+          next();
+        } else {
+          return res.status(401).json({ message: "Not authorized" })
         }
       }
     })
