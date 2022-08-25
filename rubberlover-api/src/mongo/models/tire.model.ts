@@ -64,6 +64,34 @@ const TireSchema = new mongoose.Schema({
   dateRetired: {
     type: Date,
     required: false
+  },
+  bicycleRollingResistanceArticle: {
+    type: String,
+    validate: [validateUrl]
+  },
+  tpi: {
+    type: String,
+    required: false
+  },
+  color: {
+    type: String,
+    required: false
+  },
+  casingType: {
+    type: String,
+    required: false
+  },
+  countryManufactured: {
+    type: String,
+    required: false
+  },
+  treadPattern: {
+    type: String,
+    required: false
+  },
+  year: {
+    type: Number,
+    required: false
   }
 });
 
@@ -77,11 +105,9 @@ function validateWeightUnits(unit: string) : boolean {
 }
 
 enum validWheelSizes {
-  size650b = '650b',
-  size700c = '700c',
+  size650b = '650b/27.5"',
+  size700c = '700c/29"',
   size650c = '650c',
-  size29er = '29',
-  size275 = '27.5',
   size26 = '26'
 }
 
