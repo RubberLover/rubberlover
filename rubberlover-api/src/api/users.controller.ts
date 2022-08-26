@@ -31,6 +31,7 @@ router.post('/register', async (req: Request, res: Response) => {
               res.status(200).json({
                 message: "Registration successful",
                 emailAddress: user.emailAddress,
+                name: user.name,
                 role: user.role,
                 token: token
             })
@@ -70,6 +71,7 @@ router.post('/login', async (req: Request, res: Response) => {
                     res.status(200).json({
                         message: "Login successful",
                         emailAddress: user.emailAddress,
+                        name: user.name,
                         role: user.role,
                         token: token
                     })

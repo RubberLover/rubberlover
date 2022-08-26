@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { map, Observable } from 'rxjs';
+import { UserService } from './login/user.service';
 import { TireService } from './shared/tire.service';
-import { UserService } from './shared/user.service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,35 +16,18 @@ export class AppComponent {
 
   loginResult: string = "";
   approveResult: string = "";
+  currentUserName: Observable<string>;
 
-  constructor(private _userService: UserService, private _tireService: TireService) {}
+  constructor(private _tireService: TireService, private _userService: UserService) {
+    this._userService.checkLocalStorage();
+    this.currentUserName = _userService.currentUser$.pipe(map(user => user ? user.name : ""));
+  }
 
   ngOnInit() {
-    let dis = this;
-    this.items = [
-        {
-            label: 'Home',
-            command(event?) {
-              dis._userService.login().subscribe({
-                next(value: any) {
-                  dis.loginResult = JSON.stringify(value);
-                },
-              })
-            },
-        },
-        {
-            label: 'About',
-            command(event?) {
-              dis._tireService.approve().subscribe({
-                next(value: any) {
-                  dis.approveResult = JSON.stringify(value);
-                }
-              });
-            },
-        },
-        {
-          label: 'Login'
-        }
-    ];
-}
+   
+  }
+
+  logout() {
+    this._userService.logout();
+  }
 }

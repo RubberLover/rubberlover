@@ -1,0 +1,30 @@
+
+.toolbar-wrapper {
+    display: flex;
+    justify-content: flex-start;   /* adjustment */
+    position: relative;            /* new */
+    width: 100%;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+.toolbar-item {
+    flex: 0 1 auto;
+    padding: 15px;
+}
+
+.toolbar-item:hover {
+    color: plum;
+    cursor: pointer;
+}
+
+.toolbar-item.center {
+    position: absolute;             /* new */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+.toolbar-item.right {
+    margin-left: auto;              /* new */
+  }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserService } from './user.service/user.service';
 
 
 @Injectable({
@@ -8,7 +7,7 @@ import { UserService } from './user.service/user.service';
 })
 export class TireService {
 
-  constructor(private _httpClient: HttpClient, private _userService: UserService) { }
+  constructor(private _httpClient: HttpClient) { }
 
   
   public approve() {

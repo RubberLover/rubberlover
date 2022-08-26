@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import {MenubarModule} from 'primeng/menubar';
+import { MenubarModule } from 'primeng/menubar';
 import { AppComponent } from './app.component';
-import { AuthInterceptor } from './shared/auth.interceptor';
+import { LoginModule } from './login/login.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -14,15 +15,11 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    MenubarModule
+    MenubarModule,
+    LoginModule,
+    HomeModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,38 @@
+<div class="form-wrapper">
+    <form [formGroup]="form" (ngSubmit)="register()" class="form">
+
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="name" type="text" pInputText> 
+            <label for="float-input">Username</label>
+        </span>
+
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="email" type="text" pInputText> 
+            <label for="float-input">Email Address</label>
+        </span>
+    
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="password" type="password" pInputText> 
+            <label for="float-input">Password</label>
+        </span>
+    
+        <button 
+            pButton 
+            type="button" 
+            label="Register" 
+            class="form-button"
+            type="submit"
+            [disabled]="!form.valid" ></button>
+    </form>
+    <div>
+        <span>
+            Already have an account? <a [routerLink]="['/login']" routerLinkActive="router-link-active">Login.</a>
+        </span>
+    </div>
+
+    <p>{{result}}</p>
+</div>
+
+
+
+

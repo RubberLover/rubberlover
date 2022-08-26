@@ -1,0 +1,26 @@
+.form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    .form, .form-button, .form-input, .form-input > input {
+        min-width: 300px;
+    }
+
+    .form-input, .form-button {
+        margin-top: 30px;
+    }
+
+    .form-button {
+        justify-content: center;
+    }
+
+    .result {
+        .error {
+            color: red;
+        }
+        
+    }
+
+}
