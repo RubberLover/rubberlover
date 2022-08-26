@@ -26,13 +26,14 @@ router.post('/register', async (req: Request, res: Response) => {
               expiresIn: maxAge, // 3hrs in sec
             }
           );
-          res.cookie("jwt", token, {
-            httpOnly: true,
-            maxAge: maxAge * 1000, // 3hrs in ms
-          });
           try {
               await user.save();
-              res.send(user);
+              res.status(200).json({
+                message: "Registration successful",
+                emailAddress: user.emailAddress,
+                role: user.role,
+                token: token
+            })
           } catch (error) {
               res.status(500).send(error);
           }
@@ -66,13 +67,11 @@ router.post('/login', async (req: Request, res: Response) => {
                         expiresIn: maxAge, // 3hrs in sec
                       }
                     );
-                    res.cookie("jwt", token, {
-                      httpOnly: true,
-                      maxAge: maxAge * 1000, // 3hrs in ms
-                    });
                     res.status(200).json({
                         message: "Login successful",
-                        user,
+                        emailAddress: user.emailAddress,
+                        role: user.role,
+                        token: token
                     })
                 }
                 else res.status(400).json({ message: "Login not succesful" })

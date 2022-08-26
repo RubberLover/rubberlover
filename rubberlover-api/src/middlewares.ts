@@ -19,7 +19,7 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
 }
 
 export function userAuth(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies.jwt
+  const token = extractToken(req);
   if (token) {
     jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => {
       if (err) {
@@ -41,7 +41,7 @@ export function userAuth(req: Request, res: Response, next: NextFunction) {
 }
 
 export function adminAuth(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies.jwt
+  const token = extractToken(req);
   if (token) {
     jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => {
       if (err) {
@@ -60,4 +60,13 @@ export function adminAuth(req: Request, res: Response, next: NextFunction) {
       .status(401)
       .json({ message: "Not authorized, token not available" })
   }
+}
+
+function extractToken (req: Request) : string{
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+      return req.headers.authorization.split(' ')[1];
+  } else if (req.query && req.query.token) {
+      return req.query.token.toString();
+  }
+  return "";
 }
