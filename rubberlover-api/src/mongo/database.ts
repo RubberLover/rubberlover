@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const uri = 'mongodb://root:password@localhost:27017/rubberloverdb?authSource=admin&readPreference=primary';
+const uri = process.env.MONGO_URI ? process.env.MONGO_URI : "";
 mongoose.connect(uri);
 
 const db = mongoose.connection;

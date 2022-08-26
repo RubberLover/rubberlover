@@ -19,13 +19,6 @@ app.use(cookieParser());
 
 db.startSession();
 
-
-app.get('/', (req: Request, res: Response) => {
-  res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-  });
-});
-
 app.use('/api/v1', api);
 
 app.use(middlewares.notFound);

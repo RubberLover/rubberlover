@@ -3,9 +3,10 @@ import bcrypt from 'bcrypt';
 import UserModel from '../mongo/models/user.model';
 import jwt from 'jsonwebtoken';
 import jwtSecret from '../jwt';
+import { adminAuth } from '../middlewares';
 const router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', adminAuth, async (req: Request, res: Response) => {
   try {
     const allUsers = await UserModel.find();
     res.send(allUsers);
