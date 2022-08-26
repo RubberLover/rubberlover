@@ -13,7 +13,7 @@ export class TireService {
   
   public approve() {
     let body = {
-      "_id": "6306c1de44cae42775a42a7b",
+      "_id": "63082936c9585692776a6d0a",
     }
     return this._httpClient.put("http://localhost:2112/api/v1/tires/approve", body);
   }
