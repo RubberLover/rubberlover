@@ -24,6 +24,11 @@ const TireSchema = new mongoose.Schema({
     required: true,
     validate: [validateWeightUnits]
   },
+  widthUnits: {
+    type: String,
+    required: true,
+    validate: [validateWidthUnits]
+  },
   wheelSize: {
     type: String,
     required: true,
@@ -67,7 +72,8 @@ const TireSchema = new mongoose.Schema({
   },
   bicycleRollingResistanceArticle: {
     type: String,
-    validate: [validateUrl]
+    validate: [validateUrl],
+    required: false
   },
   tpi: {
     type: String,
@@ -109,6 +115,15 @@ function validateWeightUnits(unit: string) : boolean {
   return unit in validWeightUnits;
 }
 
+enum validWidthUnits {
+  mm = 'mm',
+  inch = 'inch'
+}
+
+function validateWidthUnits(unit: string) : boolean {
+  return unit in validWidthUnits;
+}
+
 enum validWheelSizes {
   size650b = '650b/27.5"',
   size700c = '700c/29"',
@@ -132,6 +147,7 @@ function validateTireType(type: string) : boolean {
 }
 
 function validateUrl(possibleUrl: string) : boolean {
+  if (possibleUrl === "") return true;
   try {
     return Boolean(new URL(possibleUrl));
   } catch (_) {

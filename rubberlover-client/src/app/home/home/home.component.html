@@ -1,6 +1,13 @@
 <p class="welcome-user" *ngIf="(currentUserName | async)">
     Welcome, {{currentUserName | async}} 
 </p>
+
+<p-dialog header="Add Tire" [(visible)]="createDialogShown">
+    <app-create-tire-dialog>
+    </app-create-tire-dialog>
+</p-dialog>
+
+<button pButton type="button" (click)="showCreateDialog()" icon="pi pi-plus" label="Add Tire"></button>
 <tire-table>
 
 </tire-table>

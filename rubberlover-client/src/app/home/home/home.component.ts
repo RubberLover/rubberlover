@@ -10,7 +10,7 @@ import { UserService } from 'src/app/login/user.service';
 })
 export class HomeComponent implements OnInit {
   currentUserName: Observable<string>;
-
+  createDialogShown: boolean = false;
   constructor(
     private _userService: UserService,
     private _toastService: MessageService
@@ -34,8 +34,11 @@ export class HomeComponent implements OnInit {
       );
    }
 
-
   ngOnInit(): void {
+  }
+
+  showCreateDialog() {
+    this.createDialogShown = true;
   }
 
 }

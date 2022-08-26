@@ -4,6 +4,7 @@ export class Tire {
     weight: number = 0;
     width: number = 0;
     weightUnits: string = "";
+    widthUnits: string = "";
     wheelSize: string = "";
     tireType: string = "";
     sources: string[] = [];

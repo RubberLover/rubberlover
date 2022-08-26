@@ -1,0 +1,60 @@
+<div class="form-wrapper">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="name" type="text" pInputText>
+            <label for="float-input">Model Name</label>
+        </span>
+
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="brand" type="text" pInputText>
+            <label for="float-input">Brand</label>
+        </span>
+
+        <span class="p-float-label form-input">
+            <input id="float-input"  formControlName="color" type="text" pInputText>
+            <label for="float-input">Color</label>
+        </span>
+        <div class="dual-input">
+            <span class="p-float-label form-input">
+                <input id="float-input"  formControlName="weight" type="number" pInputText>
+                <label for="float-input">Weight</label>
+            </span>
+            <p-dropdown appendTo="body" [options]="weightUnitsOptions" formControlName="weightUnits"
+                placeholder="Units" [showClear]="true">
+            </p-dropdown>
+        </div>
+
+        <div class="dual-input">
+            <span class="p-float-label form-input">
+                <input id="float-input"  formControlName="width" type="number" pInputText>
+                <label for="float-input">Width</label>
+            </span>
+            <p-dropdown appendTo="body" [options]="widthUnitsOptions" formControlName="widthUnits"
+                placeholder="Units" [showClear]="true">
+            </p-dropdown>
+        </div>
+
+        <p-dropdown appendTo="body" [options]="wheelSizeOptions" formControlName="wheelSize"
+            placeholder="Wheel Size" [showClear]="true">
+        </p-dropdown>
+        <p-dropdown appendTo="body" [options]="tireTypeOptions" formControlName="tireType"
+            placeholder="Tire Type" optionLabel="label" optionValue="value" [showClear]="true">
+        </p-dropdown>
+        <p-chips formControlName="sources"></p-chips>
+
+
+        <button
+            pButton
+            type="button"
+            label="Register"
+            class="form-button"
+            type="submit"
+             ></button>
+    </form>
+
+</div>
+
+
+
+
