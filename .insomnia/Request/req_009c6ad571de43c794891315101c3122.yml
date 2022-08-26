@@ -1,7 +1,7 @@
 _id: req_009c6ad571de43c794891315101c3122
 type: Request
 parentId: fld_b40a526232874741af596c26a77d0c5f
-modified: 1661308088014
+modified: 1661479346709
 created: 1661271794505
 url: "{{_.baseUrl}}/users/login"
 name: Login
@@ -11,7 +11,7 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"emailAddress": "test2@test.test",
+    	"emailAddress": "darin@darin.darin",
     	"password": "passwordtest"
     }
 parameters: []

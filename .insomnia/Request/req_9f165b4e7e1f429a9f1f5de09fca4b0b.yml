@@ -1,9 +1,9 @@
 _id: req_9f165b4e7e1f429a9f1f5de09fca4b0b
 type: Request
 parentId: fld_b40a526232874741af596c26a77d0c5f
-modified: 1661272181905
+modified: 1661479360097
 created: 1661267192280
-url: "{{_.baseUrl}}/users/registe"
+url: "{{_.baseUrl}}/users/register"
 name: Regsiter
 description: ""
 method: POST
@@ -11,10 +11,9 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"name": "darin2",
-    	"emailAddress": "test2@test.test",
-    	"password": "passwordtest",
-    	"role": "admin"
+    	"name": "user",
+    	"emailAddress": "user@user.user",
+    	"password": "passwordtest"
     }
 parameters: []
 headers:

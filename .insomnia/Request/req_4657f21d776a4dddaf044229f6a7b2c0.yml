@@ -1,7 +1,7 @@
 _id: req_4657f21d776a4dddaf044229f6a7b2c0
 type: Request
 parentId: fld_6dd40aca45564e4394384cded7b9da6e
-modified: 1661308067694
+modified: 1661479221978
 created: 1661256736767
 url: "{{ _.baseUrl }}/tires/submit"
 name: Submit Tire Request
@@ -11,21 +11,31 @@ body:
   mimeType: application/json
   text: >-
     {
-    	"name":"thunder burt",
-    	"brand":"schwalbe",
-    	"weight":"300",
+    	"name":"Thunder Burt3",
+    	"brand":"Schwalbe",
+    	"weight":"460",
     	"weightUnits": "g",
     	"width": 2.1,
-    	"wheelSize": "650b",
+    	"wheelSize": "650b/27.5\"",
     	"tireType": "tubelessHooked",
-    	"sources": ["https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url", "https://www.bicyclerollingresistance.com/road-bike-reviews"]
+    	"sources": ["https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url", "https://www.bicyclerollingresistance.com/road-bike-reviews"],
+    	"bicycleRollingResistanceArticle" : "https://www.bicyclerollingresistance.com/road-bike-reviews",
+    	"tpi": "120",
+    	"color": "black",
+    	"casingType": "EXO protection",
+    	"countryManufactured": "Taiwan?",
+    	"treadPattern":"small knobs",
+    	"year": "2017"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
     id: pair_4a20108a350e4fa3861755642c70563b
-authentication: {}
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDRmZDc0MzQ3MjQyYTliMmUzODJjNSIsIm5hbWUiOiJkYXJpbjIiLCJlbWFpbEFkZHJlc3MiOiJ0ZXN0MkB0ZXN0LnRlc3QiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjE0Nzg5OTgsImV4cCI6MTY2MTU2NTM5OH0.7c60yQ6L4sXRo_gRPo_s8SMcPwOFvsxd0cgzt9exWAM
+  prefix: ""
 metaSortKey: -1661256736767
 isPrivate: false
 settingStoreCookies: true
