@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { map, Observable } from 'rxjs';
 import { UserService } from './login/user.service';
-import { TireService } from './shared/tire.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent {
   approveResult: string = "";
   currentUserName: Observable<string>;
 
-  constructor(private _tireService: TireService, private _userService: UserService) {
+  constructor(private _userService: UserService) {
     this._userService.checkLocalStorage();
     this.currentUserName = _userService.currentUser$.pipe(map(user => user ? user.name : ""));
   }

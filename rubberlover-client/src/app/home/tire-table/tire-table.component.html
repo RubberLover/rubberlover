@@ -1,0 +1,40 @@
+<p-table [value]="tires" responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Weight</th>
+            <th>Width</th>
+            <th>Wheel Size</th>
+            <th>Type</th>
+            <th>TPI</th>
+            <th>Casing</th>
+            <th>Color</th>
+            <th>Tread Pattern</th>
+            <th>Sources</th>
+            <th>BRR Link</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tire let-columns="columns">
+        <tr>
+            <td>{{tire.name}}</td>
+            <td>{{tire.brand}}</td>
+            <td>{{tire.weight}}</td>
+            <td>{{tire.width}}</td>
+            <td>{{tire.wheelSize}}</td>
+            <td>{{tire.tireType}}</td>
+            <td>{{tire.tpi}}</td>
+            <td>{{tire.casing}}</td>
+            <td>{{tire.color}}</td>
+            <td>{{tire.treadPattern}}</td>
+            <td class="sources">
+                <a *ngFor="let source of tire.sources" 
+                    class="source"
+                    href="{{source}}" target="_blank">{{getPrettySourceName(source)}}
+                </a>
+            </td>
+            <td>{{tire.bicycleRollingResitanceArticle}}</td>
+        </tr>
+    </ng-template>
+</p-table>

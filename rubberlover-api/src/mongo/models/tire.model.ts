@@ -92,6 +92,11 @@ const TireSchema = new mongoose.Schema({
   year: {
     type: Number,
     required: false
+  },
+  icon: {
+    type: String,
+    validate: [validateUrl],
+    required: false
   }
 });
 

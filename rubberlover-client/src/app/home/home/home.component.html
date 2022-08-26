@@ -1,1 +1,6 @@
-<p>Welcome, {{currentUserName | async}} </p>
+<p class="welcome-user" *ngIf="(currentUserName | async)">
+    Welcome, {{currentUserName | async}} 
+</p>
+<tire-table>
+
+</tire-table>
