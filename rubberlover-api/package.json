@@ -7,10 +7,11 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "lint": "eslint --fix src test",
     "test": "jest",
     "start:prod": "node dist/src/index.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run tsc"
   },
   "keywords": [],
   "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
