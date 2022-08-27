@@ -15,10 +15,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/submit', userAuth, async (req: Request, res: Response) => {
-  console.log(req);
-
     const tire = new TireModel(req.body);
-    console.log(tire);
     try {
       await tire.save();
       res.send(tire);
