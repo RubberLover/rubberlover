@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTireDialogComponent } from './create-tire-dialog/create-tire-dialog.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ChipsModule} from 'primeng/chips';
+import {DividerModule} from 'primeng/divider';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {ChipsModule} from 'primeng/chips';
     ReactiveFormsModule,
     InputTextModule,
     DropdownModule,
-    ChipsModule
+    ChipsModule,
+    DividerModule
   ],
   providers: [
     MessageService

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TireService } from '../tire.service';
 
@@ -8,11 +8,14 @@ import { TireService } from '../tire.service';
   styleUrls: ['./create-tire-dialog.component.scss']
 })
 export class CreateTireDialogComponent implements OnInit {
+  @Output() newTireSaved: EventEmitter<any> = new EventEmitter<any>();
+
   form: FormGroup;
   weightUnitsOptions;
   widthUnitsOptions;
   wheelSizeOptions;
   tireTypeOptions;
+
   constructor(private _fb: FormBuilder, private _tireService: TireService) { 
     this.weightUnitsOptions = ["g", "oz"];
     this.widthUnitsOptions = ["mm", "inch"];
@@ -48,7 +51,8 @@ export class CreateTireDialogComponent implements OnInit {
       sources: ["", Validators.required],
       bicycleRollingResistanceArticle: [""],
       tpi: [""],
-      color: ["", Validators.required],
+      treadPattern: [""],
+      color: [""],
       casingType: [""],
       countryManufactured: [""],
       year: [""],
@@ -63,6 +67,9 @@ export class CreateTireDialogComponent implements OnInit {
     console.log(this.form.getRawValue());
     this._tireService.submitTire(this.form.getRawValue()).subscribe(result => {
       console.log(result);
+      if (result) {
+        this.newTireSaved.emit();
+      }
     })
   }
 

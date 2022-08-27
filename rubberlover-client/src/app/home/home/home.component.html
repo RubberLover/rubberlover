@@ -3,12 +3,18 @@
 </p>
 
 <p-dialog header="Add Tire" [(visible)]="createDialogShown">
-    <app-create-tire-dialog>
+    <app-create-tire-dialog
+        (newTireSaved)="onNewTireSaved($event)">
     </app-create-tire-dialog>
 </p-dialog>
 
-<button pButton type="button" (click)="showCreateDialog()" icon="pi pi-plus" label="Add Tire"></button>
-<tire-table>
+<div class="content-wrapper">
+    <div class="button-wrapper">
+        <button pButton type="button" (click)="showCreateDialog()" icon="pi pi-plus" class="add-tire-button" label="Add Tire"></button>
+    </div>
+    <tire-table
+        [tireAddedSubject]="tireAddedSubject">
+    </tire-table>
+</div>
 
-</tire-table>
 <p-toast [preventOpenDuplicates]="true" position="bottom-center"></p-toast>

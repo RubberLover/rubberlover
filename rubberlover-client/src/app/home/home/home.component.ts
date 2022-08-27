@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { UserService } from 'src/app/login/user.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { UserService } from 'src/app/login/user.service';
 export class HomeComponent implements OnInit {
   currentUserName: Observable<string>;
   createDialogShown: boolean = false;
+  tireAddedSubject: Subject<any> = new Subject();
   constructor(
     private _userService: UserService,
     private _toastService: MessageService
@@ -39,6 +40,11 @@ export class HomeComponent implements OnInit {
 
   showCreateDialog() {
     this.createDialogShown = true;
+  }
+
+  onNewTireSaved(_event: any) {
+    this.createDialogShown = false;
+    this.tireAddedSubject.next(null);
   }
 
 }

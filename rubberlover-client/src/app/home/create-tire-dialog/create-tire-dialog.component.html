@@ -1,47 +1,99 @@
 <div class="form-wrapper">
     <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+        <div class="form-fields">
+            <div class="required-fields">
+                <p-divider align="center">
+                    <span class="p-tag">Required</span>
+                </p-divider>
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="brand" type="text" pInputText>
+                        <label for="float-input">Brand</label>
+                    </span>
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="name" type="text" pInputText>
+                        <label for="float-input">Model Name</label>
+                    </span>
+                </div>
+        
+                <div class="dual-input">
+                    <p-dropdown class="form-input" appendTo="body" [options]="tireTypeOptions" formControlName="tireType"
+                        placeholder="Tire Type" optionLabel="label" optionValue="value" [showClear]="true">
+                    </p-dropdown>
+                    <p-dropdown class="form-input" appendTo="body" [options]="wheelSizeOptions" formControlName="wheelSize"
+                        placeholder="Wheel Size" [showClear]="true" id="wheelSize">
+                    </p-dropdown>
+                </div>
 
-        <span class="p-float-label form-input">
-            <input id="float-input"  formControlName="name" type="text" pInputText>
-            <label for="float-input">Model Name</label>
-        </span>
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="weight" type="number" pInputText>
+                        <label for="float-input">Weight</label>
+                    </span>
+                    <p-dropdown appendTo="body" [options]="weightUnitsOptions" formControlName="weightUnits"
+                        placeholder="Units" [showClear]="true" class="units-dropdown">
+                    </p-dropdown>
+                </div>
+        
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="width" type="number" pInputText>
+                        <label for="float-input">Width</label>
+                    </span>
+                    <p-dropdown appendTo="body" [options]="widthUnitsOptions" formControlName="widthUnits"
+                        placeholder="Units" [showClear]="true" class="units-dropdown">
+                    </p-dropdown>
+                </div>
+                <div class="sources">
+                    <label for="sources-input">Sources:</label>
+                    <p-chips id="sources-input" class="form-input chips" formControlName="sources"></p-chips>
+                    <small>Press Enter after inputting each link to add to the list</small>
+                </div>    
+            </div>
+            <p-divider layout="vertical">
+            </p-divider>
+            <div class="optional-fields">
+                <p-divider align="center">
+                    <span class="p-tag">Optional (but helpful!)</span>
+                </p-divider>
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="tpi" type="text" pInputText>
+                        <label for="float-input">TPI (Threads Per Inch)</label>
+                    </span>
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="casingType" type="text" pInputText>
+                        <label for="float-input">Casing Details</label>
+                    </span>
+                </div>
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="color" type="text" pInputText>
+                        <label for="float-input">Color</label>
+                    </span>
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="treadPattern" type="text" pInputText>
+                        <label for="float-input">Tread Pattern</label>
+                    </span>
+                </div>
+                <div class="dual-input">
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="countryManufactured" type="text" pInputText>
+                        <label for="float-input">Manufacturing Country</label>
+                    </span>
+                    <span class="p-float-label form-input">
+                        <input id="float-input"  formControlName="year" type="number" pInputText>
+                        <label for="float-input">Year</label>
+                    </span>
+                </div>
+                <span class="p-float-label form-input wide">
+                    <input id="float-input"  formControlName="bicycleRollingResistanceArticle" type="text" pInputText>
+                    <label for="float-input">Bicycle Rolling Resistance Article</label>
+                </span>
 
-        <span class="p-float-label form-input">
-            <input id="float-input"  formControlName="brand" type="text" pInputText>
-            <label for="float-input">Brand</label>
-        </span>
-
-        <span class="p-float-label form-input">
-            <input id="float-input"  formControlName="color" type="text" pInputText>
-            <label for="float-input">Color</label>
-        </span>
-        <div class="dual-input">
-            <span class="p-float-label form-input">
-                <input id="float-input"  formControlName="weight" type="number" pInputText>
-                <label for="float-input">Weight</label>
-            </span>
-            <p-dropdown appendTo="body" [options]="weightUnitsOptions" formControlName="weightUnits"
-                placeholder="Units" [showClear]="true">
-            </p-dropdown>
+            </div>
         </div>
-
-        <div class="dual-input">
-            <span class="p-float-label form-input">
-                <input id="float-input"  formControlName="width" type="number" pInputText>
-                <label for="float-input">Width</label>
-            </span>
-            <p-dropdown appendTo="body" [options]="widthUnitsOptions" formControlName="widthUnits"
-                placeholder="Units" [showClear]="true">
-            </p-dropdown>
-        </div>
-
-        <p-dropdown appendTo="body" [options]="wheelSizeOptions" formControlName="wheelSize"
-            placeholder="Wheel Size" [showClear]="true">
-        </p-dropdown>
-        <p-dropdown appendTo="body" [options]="tireTypeOptions" formControlName="tireType"
-            placeholder="Tire Type" optionLabel="label" optionValue="value" [showClear]="true">
-        </p-dropdown>
-        <p-chips formControlName="sources"></p-chips>
+        
 
 
         <button
@@ -50,6 +102,7 @@
             label="Register"
             class="form-button"
             type="submit"
+            [disabled]="!form.valid"
              ></button>
     </form>
 

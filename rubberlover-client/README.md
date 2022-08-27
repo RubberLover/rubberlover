@@ -34,5 +34,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [ ] implement sort https://www.primefaces.org/primeng/table/sort
 [ ] implement filter https://www.primefaces.org/primeng/table/filter    
 [ ] add input group icons on form fields https://www.primefaces.org/primeng/inputgroup
-[ ] submit tire dialog
+[ ] add optional fields to add tire dialog
 [ ] tire approval interface?
+[ ] unit selector

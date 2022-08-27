@@ -1,8 +1,48 @@
 .form-input {
     margin: 10px;
+    &.wide > input{
+        min-width: 100%
+    }
+}
+
+.form-wrapper {
+    display:flex;
+    flex-direction: column;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: row;
 }
 
 .dual-input {
     display: flex;
     flex-direction:  row;
+}
+
+.units-dropdown {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.sources {
+    label, small {
+        margin-left: 10px
+    }
+    display: flex;
+    flex-direction: column;
+    .chips > div > ul {
+        min-width: 100%;
+        ul {
+            min-width: 100%;
+        }
+    }
+}
+
+.form-button {
+    float: right;
+}
+
+.required-fields, .optional-fields {
+    min-width: 400px;
 }
