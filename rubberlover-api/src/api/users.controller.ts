@@ -17,29 +17,46 @@ router.get('/', adminAuth, async (req: Request, res: Response) => {
 
 router.post('/register', async (req: Request, res: Response) => {
     const user = new UserModel(req.body);
-    bcrypt.hash(user.password, 10).then(async (hash: string) => {
-          user.password = hash;
-          const maxAge = 24 * 60 * 60;
-          const token = jwt.sign(
-            { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
-            jwtSecret,
-            {
-              expiresIn: maxAge, // 3hrs in sec
-            }
-          );
-          try {
-              await user.save();
-              res.status(200).json({
-                message: "Registration successful",
-                emailAddress: user.emailAddress,
-                name: user.name,
-                role: user.role,
-                token: token
-            })
-          } catch (error) {
-              res.status(500).send(error);
+    if (user) {
+      bcrypt.hash(user.password, 10).then(async (hash: string) => {
+        user.password = hash;
+        const maxAge = 24 * 60 * 60;
+        const token = jwt.sign(
+          { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
+          jwtSecret,
+          {
+            expiresIn: maxAge, // 3hrs in sec
           }
-    });
+        );
+        try {
+            await user.save();
+            res.status(200).json({
+              message: "Registration successful",
+              emailAddress: user.emailAddress,
+              name: user.name,
+              role: user.role,
+              token: token
+          })
+        } catch (error: any) {
+          if (error['code'] == 11000) {
+            if (error.keyPattern.name) {
+              res.status(400).send("That username is already taken! ");
+              return;
+            }
+            if (error.keyPattern.emailAddress) {
+              res.status(400).send("That email address already has an account.");
+              return;
+            }
+          } else {
+            res.status(500).send(error);
+          }
+        }
+      });
+    }
+    else {
+      console.log("dups");
+    }
+    
 });
 
 router.post('/login', async (req: Request, res: Response) => {
