@@ -5,6 +5,7 @@ import { JwtService } from './jwt.service';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './models/user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class UserService {
 
   currentUser$ = new BehaviorSubject<User | null>(null);
+  baseUrl = environment.apiUrl;
 
   constructor(private _httpClient: HttpClient,
     private _jwt: JwtService,
@@ -22,7 +24,7 @@ export class UserService {
       "emailAddress": email,
       "password": password
     }
-    return this._httpClient.post<any>("http://localhost:2112/api/v1/users/login", body)
+    return this._httpClient.post<any>(`${this.baseUrl}/users/login`, body)
       .pipe(tap((result) => {
         this.handleLoginResponse(result);
       }));
@@ -39,7 +41,7 @@ export class UserService {
       "emailAddress": email,
       "password": password
     }
-    return this._httpClient.post<any>("http://localhost:2112/api/v1/users/register", body)
+    return this._httpClient.post<any>(`${this.baseUrl}/users/register`, body)
       .pipe(tap((result) => {
         this.handleLoginResponse(result)
       }));

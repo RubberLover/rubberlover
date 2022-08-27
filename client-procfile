@@ -1,0 +1,2 @@
+web: cd rubberlover-client && npm run start:prod
+
