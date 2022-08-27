@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "build": "./node_modules/typescript/bin/tsc",
     "tsc": "./node_modules/typescript/bin/tsc",
     "lint": "eslint --fix src test",
     "test": "jest",
