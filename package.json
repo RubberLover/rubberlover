@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-api; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
     "postinstall-client": "cd rubberlover-client && npm install && npm run build",
-    "postinstall-api": "cd rubberlover-api && npm install"
+    "postinstall-api": "cd rubberlover-api && npm install && npm run build"
   },
   "repository": {
     "type": "git",
