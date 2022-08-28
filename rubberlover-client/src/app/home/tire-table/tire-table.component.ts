@@ -8,7 +8,7 @@ import { TireService } from '../tire.service';
   templateUrl: './tire-table.component.html',
   styleUrls: ['./tire-table.component.scss']
 })
-export class TireTableComponent {
+export class TireTableComponent implements OnInit {
   @Input() tireAddedSubject: Subject<null> | undefined;
 
   tires: Tire[] = [];
@@ -20,11 +20,6 @@ export class TireTableComponent {
       this.tires = tires;
     });
 
-    this.tireAddedSubject?.subscribe(_ => {
-      this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
-        this.tires = tires;
-      })
-    });
     this.headers = [
       "Name", "Brand", "Weight", "Width",
       "Wheel Size", "Tire Type", "Color", "Casing",
@@ -32,6 +27,14 @@ export class TireTableComponent {
     ]
     this._selectedColumns = this.headers.slice(0,10);
    }
+  ngOnInit(): void {
+    this.tireAddedSubject?.subscribe(_ => {
+      console.log("new tire added")
+      this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
+        this.tires = tires;
+      })
+    });
+  }
 
   getPrettySourceName(source: string) {
     if (!source) return "";

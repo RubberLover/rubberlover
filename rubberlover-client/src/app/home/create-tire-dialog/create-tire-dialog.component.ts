@@ -66,6 +66,7 @@ export class CreateTireDialogComponent {
       console.log(result);
       if (result) {
         this.newTireSaved.emit();
+        this.form.reset();
       }
     })
   }
