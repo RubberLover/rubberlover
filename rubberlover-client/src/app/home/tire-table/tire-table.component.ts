@@ -4,11 +4,11 @@ import { Tire } from '../tire.model';
 import { TireService } from '../tire.service';
 
 @Component({
-  selector: 'tire-table',
+  selector: 'app-tire-table',
   templateUrl: './tire-table.component.html',
   styleUrls: ['./tire-table.component.scss']
 })
-export class TireTableComponent implements OnInit {
+export class TireTableComponent {
   @Input() tireAddedSubject: Subject<null> | undefined;
 
   tires: Tire[] = [];
@@ -32,9 +32,6 @@ export class TireTableComponent implements OnInit {
     ]
     this._selectedColumns = this.headers.slice(0,10);
    }
-
-  ngOnInit(): void {
-  }
 
   getPrettySourceName(source: string) {
     if (!source) return "";

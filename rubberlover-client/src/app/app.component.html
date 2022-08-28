@@ -1,6 +1,6 @@
 <div class="toolbar-wrapper">
     <div class="toolbar-item center" [routerLink]="''">RubberLover</div>
-    <div *ngIf="!(currentUserName | async)" class="toolbar-item right" [routerLink]="'/login'">Login</div>
+    <div *ngIf="(currentUserName | async) === ''" class="toolbar-item right" [routerLink]="'/login'">Login</div>
     <div *ngIf="currentUserName | async" class="toolbar-item right" (click)="logout()">Logout</div>
 </div>
 <router-outlet></router-outlet>

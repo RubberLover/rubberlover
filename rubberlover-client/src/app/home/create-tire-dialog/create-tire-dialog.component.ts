@@ -7,7 +7,7 @@ import { TireService } from '../tire.service';
   templateUrl: './create-tire-dialog.component.html',
   styleUrls: ['./create-tire-dialog.component.scss']
 })
-export class CreateTireDialogComponent implements OnInit {
+export class CreateTireDialogComponent {
   @Output() newTireSaved: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
@@ -58,9 +58,6 @@ export class CreateTireDialogComponent implements OnInit {
       year: [""],
       icon: [""],
     })
-  }
-
-  ngOnInit(): void {
   }
 
   submit() {
