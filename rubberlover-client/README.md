@@ -27,7 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
-[ ] add column toggling https://www.primefaces.org/primeng/table/coltoggle
+[x] add column toggling https://www.primefaces.org/primeng/table/coltoggle
 [ ] make headers sticky https://www.primefaces.org/primeng/table/sticky
 [ ] add table row edit https://www.primefaces.org/primeng/table/edit
 [ ] store filter/sort in session storage https://www.primefaces.org/primeng/table/state
@@ -37,4 +37,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [ ] add optional fields to add tire dialog
 [ ] tire approval interface?
 [ ] unit selector
-[ ] deploy to prod
+[x] deploy to prod

@@ -14,13 +14,16 @@ import { CreateTireDialogComponent } from './create-tire-dialog/create-tire-dial
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ChipsModule} from 'primeng/chips';
 import {DividerModule} from 'primeng/divider';
+import {MultiSelectModule } from 'primeng/multiselect';
+import { TireTypePipe } from './tire-table/tire-type.pipe/tire-type.pipe'
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     TireTableComponent,
-    CreateTireDialogComponent
+    CreateTireDialogComponent,
+    TireTypePipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import {DividerModule} from 'primeng/divider';
     InputTextModule,
     DropdownModule,
     ChipsModule,
-    DividerModule
+    DividerModule,
+    MultiSelectModule
   ],
   providers: [
     MessageService

@@ -1,39 +1,40 @@
-<p-table [value]="tires" responsiveLayout="scroll" styleClass="p-datatable-striped p-datatable-sm">
+<p-table 
+    [columns]="selectedColumns" 
+    [value]="tires" 
+    responsiveLayout="scroll" 
+    styleClass="p-datatable-striped p-datatable-sm"
+    [reorderableColumns]="true">
+    <ng-template pTemplate="caption">
+        <p-multiSelect [options]="headers" [(ngModel)]="selectedColumns" 
+            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Weight</th>
-            <th>Width</th>
-            <th>Wheel Size</th>
-            <th>Type</th>
-            <th>TPI</th>
-            <th>Casing</th>
-            <th>Color</th>
-            <th>Tread Pattern</th>
-            <th>Sources</th>
-            <th>BRR Link</th>
+            <th *ngFor="let col of selectedColumns" pReorderableColumn>
+                {{col}}
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tire let-columns="columns">
         <tr>
-            <td>{{tire.name}}</td>
-            <td>{{tire.brand}}</td>
-            <td>{{tire.weight}}{{tire.weightUnits}}</td>
-            <td>{{tire.width}}{{tire.widthUnits}}</td>
-            <td>{{tire.wheelSize}}</td>
-            <td>{{tire.tireType}}</td>
-            <td>{{tire.tpi}}</td>
-            <td>{{tire.casingType}}</td>
-            <td>{{tire.color}}</td>
-            <td>{{tire.treadPattern}}</td>
-            <td class="sources">
+            <td *ngIf="selectedColumns.includes('Name')">{{tire.name}}</td>
+            <td *ngIf="selectedColumns.includes('Brand')" >{{tire.brand}}</td>
+            <td *ngIf="selectedColumns.includes('Weight')" >{{tire.weight}}{{tire.weightUnits}}</td>
+            <td *ngIf="selectedColumns.includes('Width')" >{{tire.width}}{{tire.widthUnits}}</td>
+            <td *ngIf="selectedColumns.includes('Wheel Size')" >{{tire.wheelSize}}</td>
+            <td *ngIf="selectedColumns.includes('Tire Type')" >{{tire.tireType | tireType}}</td>
+            <td *ngIf="selectedColumns.includes('Casing')" >{{tire.casingType}}</td>
+            <td *ngIf="selectedColumns.includes('Color')" >{{tire.color}}</td>
+            <td *ngIf="selectedColumns.includes('Tread Pattern')" >{{tire.treadPattern}}</td>
+            <td *ngIf="selectedColumns.includes('Made In')" >{{tire.countryManufactured}}</td>
+            <td *ngIf="selectedColumns.includes('Year')" >{{tire.year}}</td>
+            <td *ngIf="selectedColumns.includes('Sources')" class="sources" >
                 <a *ngFor="let source of tire.sources" 
                     class="source"
                     href="{{source}}" target="_blank">{{getPrettySourceName(source)}}
                 </a>
             </td>
-            <td>{{getPrettySourceName(tire.bicycleRollingResistanceArticle)}}</td>
+            <td *ngIf="selectedColumns.includes('BRR Article')" >{{getPrettySourceName(tire.bicycleRollingResistanceArticle)}}</td>
         </tr>
     </ng-template>
 </p-table>

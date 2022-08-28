@@ -12,6 +12,9 @@ export class TireTableComponent implements OnInit {
   @Input() tireAddedSubject: Subject<null> | undefined;
 
   tires: Tire[] = [];
+  headers;
+  _selectedColumns: any[];
+
   constructor(private _tireSerivce: TireService) {
     this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
       this.tires = tires;
@@ -22,6 +25,12 @@ export class TireTableComponent implements OnInit {
         this.tires = tires;
       })
     });
+    this.headers = [
+      "Name", "Brand", "Weight", "Width",
+      "Wheel Size", "Tire Type", "Color", "Casing",
+      "Tread Pattern", "Made In", "Sources", "BRR Article", "Year"
+    ]
+    this._selectedColumns = this.headers.slice(0,10);
    }
 
   ngOnInit(): void {
@@ -31,5 +40,14 @@ export class TireTableComponent implements OnInit {
     if (!source) return "";
     const url = new URL(source);
     return url.hostname;
+  }
+
+  @Input() get selectedColumns(): any[] {
+    return this._selectedColumns;
+  }
+
+  set selectedColumns(val: any[]) {
+      //restore original order
+      this._selectedColumns = this.headers.filter(col => val.includes(col));
   }
 }
