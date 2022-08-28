@@ -47,4 +47,5 @@ export class HomeComponent implements OnInit {
     this.tireAddedSubject.next(null);
   }
 
+
 }

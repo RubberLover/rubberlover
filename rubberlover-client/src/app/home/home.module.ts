@@ -16,7 +16,7 @@ import {ChipsModule} from 'primeng/chips';
 import {DividerModule} from 'primeng/divider';
 import {MultiSelectModule } from 'primeng/multiselect';
 import { TireTypePipe } from './tire-table/tire-type.pipe/tire-type.pipe'
-
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { TireTypePipe } from './tire-table/tire-type.pipe/tire-type.pipe'
     DropdownModule,
     ChipsModule,
     DividerModule,
-    MultiSelectModule
+    MultiSelectModule,
+    TooltipModule
   ],
   providers: [
     MessageService

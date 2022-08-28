@@ -10,7 +10,12 @@
 
 <div class="content-wrapper">
     <div class="button-wrapper">
-        <button pButton type="button" (click)="showCreateDialog()" icon="pi pi-plus" class="add-tire-button" label="Add Tire"></button>
+        <i *ngIf="(currentUserName | async) === ''"
+            class="pi pi-info-circle center-icon" 
+            pTooltip="Must be logged in to add tires" tooltipPosition="top"></i>
+        <button pButton type="button" (click)="showCreateDialog()" 
+            [disabled]="(currentUserName | async) === ''"
+            icon="pi pi-plus" class="add-tire-button" label="Add Tire"></button>
     </div>
     <app-tire-table
         [tireAddedSubject]="tireAddedSubject">
