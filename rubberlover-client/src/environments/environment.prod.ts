@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://localhost:2112/api/v1"
+  apiUrl: "https://rubberloverxyz-api.herokuapp.com/api/v1"
 };
