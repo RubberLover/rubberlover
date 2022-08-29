@@ -23,7 +23,7 @@ export class TireTableComponent implements OnInit {
 
     this.headers = [
       "Name", "Brand", "Weight", "Width",
-      "Wheel Size", "Tire Type", "Color", "Casing",
+      "Wheel Size", "Tire Type", "Casing", "Color",
       "Tread Pattern", "Made In", "Sources", "BRR Article", "Year"
     ]
     this._selectedColumns = this.headers.slice(0,10);
