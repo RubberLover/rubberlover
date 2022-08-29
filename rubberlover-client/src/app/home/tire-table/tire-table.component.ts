@@ -14,6 +14,7 @@ export class TireTableComponent implements OnInit {
   tires: Tire[] = [];
   headers;
   _selectedColumns: any[];
+  selectedWeightUnit: string = 'g';
 
   constructor(private _tireSerivce: TireService) {
     this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {

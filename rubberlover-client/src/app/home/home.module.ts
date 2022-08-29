@@ -18,6 +18,7 @@ import {MultiSelectModule } from 'primeng/multiselect';
 import { TireTypePipe } from './tire-table/tire-type.pipe/tire-type.pipe'
 import {TooltipModule} from 'primeng/tooltip';
 import { ToPrettyUrlPipe } from './tire-table/to-pretty-url.pipe/to-pretty-url.pipe';
+import { ToSelectedUnitsPipe } from './tire-table/to-selected-units.pipe/to-selected-units.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ToPrettyUrlPipe } from './tire-table/to-pretty-url.pipe/to-pretty-url.p
     TireTableComponent,
     CreateTireDialogComponent,
     TireTypePipe,
-    ToPrettyUrlPipe
+    ToPrettyUrlPipe,
+    ToSelectedUnitsPipe
   ],
   imports: [
     CommonModule,

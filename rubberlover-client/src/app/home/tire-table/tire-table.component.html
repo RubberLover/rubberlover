@@ -2,15 +2,18 @@
     [columns]="selectedColumns" 
     [value]="tires" 
     responsiveLayout="scroll" 
-    styleClass="p-datatable-striped p-datatable-sm"
-    [reorderableColumns]="true">
+    styleClass="p-datatable-striped p-datatable-sm">
     <ng-template pTemplate="caption">
         <p-multiSelect [options]="headers" [(ngModel)]="selectedColumns" 
             selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+        <p-dropdown [options]="['g','oz']" [(ngModel)]="selectedWeightUnit"
+            placeholder="Units" class="units-dropdown">
+        </p-dropdown>
+
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of selectedColumns" pReorderableColumn>
+            <th *ngFor="let col of selectedColumns">
                 {{col}}
             </th>
         </tr>
@@ -19,7 +22,7 @@
         <tr>
             <td *ngIf="selectedColumns.includes('Name')">{{tire.name}}</td>
             <td *ngIf="selectedColumns.includes('Brand')" >{{tire.brand}}</td>
-            <td *ngIf="selectedColumns.includes('Weight')" >{{tire.weight}}{{tire.weightUnits}}</td>
+            <td *ngIf="selectedColumns.includes('Weight')" >{{tire.weight | toSelectedUnits:tire.weightUnits:selectedWeightUnit}}{{selectedWeightUnit}}</td>
             <td *ngIf="selectedColumns.includes('Width')" >{{tire.width}}{{tire.widthUnits}}</td>
             <td *ngIf="selectedColumns.includes('Wheel Size')" >{{tire.wheelSize}}</td>
             <td *ngIf="selectedColumns.includes('Tire Type')" >{{tire.tireType | tireType}}</td>
