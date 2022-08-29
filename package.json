@@ -6,7 +6,11 @@
   "scripts": {
     "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-api; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
     "postinstall-client": "cd rubberlover-client && npm install --include dev",
-    "postinstall-api": "cd rubberlover-api && npm install --include dev"
+    "postinstall-api": "cd rubberlover-api && npm install --include dev",
+    "start:api:dev": "cd rubberlover-api && npm run dev",
+    "start:db": "cd rubberlover-api/\\database && docker-compose up --build",
+    "start:ui": "cd rubberlover-client && npm run start",
+    "start:env": "concurrently --kill-others \"npm run start:api:dev\" \"npm run start:db\" \"npm run start:ui\""
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/RubberLover/rubberlover/issues"
   },
-  "homepage": "https://github.com/RubberLover/rubberlover#readme"
+  "homepage": "https://github.com/RubberLover/rubberlover#readme",
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  }
 }
