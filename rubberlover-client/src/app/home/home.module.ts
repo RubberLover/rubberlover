@@ -17,13 +17,15 @@ import {DividerModule} from 'primeng/divider';
 import {MultiSelectModule } from 'primeng/multiselect';
 import { TireTypePipe } from './tire-table/tire-type.pipe/tire-type.pipe'
 import {TooltipModule} from 'primeng/tooltip';
+import { ToPrettyUrlPipe } from './tire-table/to-pretty-url.pipe/to-pretty-url.pipe';
 
 @NgModule({
   declarations: [
     HomeComponent,
     TireTableComponent,
     CreateTireDialogComponent,
-    TireTypePipe
+    TireTypePipe,
+    ToPrettyUrlPipe
   ],
   imports: [
     CommonModule,

@@ -31,12 +31,12 @@
             <td *ngIf="selectedColumns.includes('Sources')" class="sources" >
                 <a *ngFor="let source of tire.sources" 
                     class="source"
-                    href="{{source}}" target="_blank">{{getPrettySourceName(source)}}
+                    href="{{source}}" target="_blank">{{(source | toPrettyUrl)}}
                 </a>
             </td>
             <td *ngIf="selectedColumns.includes('BRR Article')" >
-               <a href="{{tire.bicycleRollingResitanceArticle}}" class="source" target="_blank">
-                {{getPrettySourceName(tire.bicycleRollingResitanceArticle)}}
+               <a href="{{tire.bicycleRollingResistanceArticle}}" class="source" target="_blank">
+                {{tire.bicycleRollingResistanceArticle | toPrettyUrl}}
                </a>
             </td>
         </tr>

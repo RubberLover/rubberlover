@@ -29,17 +29,10 @@ export class TireTableComponent implements OnInit {
    }
   ngOnInit(): void {
     this.tireAddedSubject?.subscribe(_ => {
-      console.log("new tire added")
       this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
         this.tires = tires;
       })
     });
-  }
-
-  getPrettySourceName(source: string) {
-    if (!source) return "";
-    const url = new URL(source);
-    return url.hostname;
   }
 
   @Input() get selectedColumns(): any[] {
