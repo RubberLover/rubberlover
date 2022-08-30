@@ -20,10 +20,13 @@ export class TireTableComponent implements OnInit {
   selectedTire!: Tire;
   editDialogShown = false;
   isLoggedIn = false;
+  loading = false;
 
   constructor(private _tireSerivce: TireService, private _userService: UserService) {
+    this.loading = true;
     this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
       this.tires = tires;
+      this.loading = false;
     });
 
     this.headers = [
@@ -36,8 +39,10 @@ export class TireTableComponent implements OnInit {
   }
   ngOnInit(): void {
     this.tireAddedSubject?.subscribe(_ => {
+      this.loading = true;
       this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
         this.tires = tires;
+        this.loading = false;
       })
     });
   }
