@@ -57,6 +57,10 @@ const TireSchema = new mongoose.Schema({
     required: true,
     default: false
   },
+  createdBy: {
+    type: String,
+    required: true
+  },
   dateCreated: {
     type: Date,
     required: true,

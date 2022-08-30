@@ -1,4 +1,12 @@
+
 .sources {
     display:flex;
     flex-direction: column;
+}
+
+.edit-button {
+    background-color: rgb(242,208,102);
+    &:hover {
+        background-color:darken($color: rgb(242,208,102), $amount: 15);
+    }
 }

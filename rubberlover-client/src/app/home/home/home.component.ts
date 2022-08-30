@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { map, Observable, Subject, tap } from 'rxjs';
+import { User } from 'src/app/login/models/user.model';
 import { UserService } from 'src/app/login/user.service';
 
 @Component({
@@ -9,14 +10,14 @@ import { UserService } from 'src/app/login/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  currentUserName: Observable<string>;
+  currentUser: Observable<User | null>;
   createDialogShown: boolean = false;
   tireAddedSubject: Subject<any> = new Subject();
   constructor(
     private _userService: UserService,
     private _toastService: MessageService
     ) {
-    this.currentUserName = this._userService.currentUser$
+    this.currentUser = this._userService.currentUser$
       .pipe(
         tap(user => {
           if (user) {
@@ -30,8 +31,7 @@ export class HomeComponent implements OnInit {
               life: 2000,
               summary:'Logged out!'});
           }
-        }),
-        map(user => user ? user.name : "")
+        })
       );
    }
 
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     this.createDialogShown = true;
   }
 
-  onNewTireSaved(_event: any) {
+  onTireSaved(_event: any) {
     this.createDialogShown = false;
     this.tireAddedSubject.next(null);
   }

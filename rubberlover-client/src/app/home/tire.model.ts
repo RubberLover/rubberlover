@@ -14,6 +14,7 @@ export class Tire {
     retired: boolean = false;
     dateRetired: Date = new Date();
     dateCreated: Date = new Date();
+    createdBy: string = "";
     bicycleRollingResitanceArticle: string = "";
     tpi: string = "";
     color: string = "";

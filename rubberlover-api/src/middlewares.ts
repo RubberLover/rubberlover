@@ -27,7 +27,35 @@ export function userAuth(req: Request, res: Response, next: NextFunction) {
       } else {
         if (decodedToken.role == "user" || decodedToken.role == "admin") {
           res.locals.name = decodedToken.name;
+          res.locals.id = decodedToken.id;
           next();
+        } else {
+          return res.status(401).json({ message: "Not authorized" })
+        }
+      }
+    })
+  } else {
+    return res
+      .status(401)
+      .json({ message: "Not authorized, token not available" })
+  }
+}
+
+export function authorAuth(req: Request, res: Response, next: NextFunction) {
+  const token = extractToken(req);
+  if (token) {
+    jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => {
+      if (err) {
+        return res.status(401).json({ message: "Not authorized" })
+      } else {
+        if (decodedToken.role == "user" || decodedToken.role == "admin") {
+          res.locals.name = decodedToken.name;
+          res.locals.id = decodedToken.id;
+          if ((req.body.createdBy && req.body.createdBy === res.locals.id) || decodedToken.role == "admin") {
+            next();
+          } else {
+            return res.status(401).json({ message: "Cannot edit tires you didn't create" });
+          }
         } else {
           return res.status(401).json({ message: "Not authorized" })
         }

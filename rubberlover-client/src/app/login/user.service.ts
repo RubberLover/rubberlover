@@ -1,11 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators'
-import { JwtService } from './jwt.service';
-import { BehaviorSubject } from 'rxjs';
-import { User } from './models/user.model';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Tire } from '../home/tire.model';
+import { JwtService } from './jwt.service';
+import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,8 @@ export class UserService {
       this.currentUser$.next({
         name: token.name,
         email: token.emailAddress,
-        role: token.role
+        role: token.role,
+        id: token.id
       })
     }
   }
@@ -63,8 +65,15 @@ export class UserService {
     this.currentUser$.next({
       name: result["name"],
       email: result['emailAddress'],
-      role: result["role"]
+      role: result["role"],
+      id: result["id"]
     });
     this._router.navigate(["/"]);
+  }
+
+  public canEditTire(tire: Tire): boolean {
+    if (this.currentUser$?.value?.role === 'admin') return true;
+    if (this.currentUser$?.value?.id === tire.createdBy) return true;
+    return false;
   }
 }

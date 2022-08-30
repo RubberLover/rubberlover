@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Tire } from '../tire.model';
 import { TireService } from '../tire.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { TireService } from '../tire.service';
   styleUrls: ['./create-tire-dialog.component.scss']
 })
 export class CreateTireDialogComponent {
-  @Output() newTireSaved: EventEmitter<any> = new EventEmitter<any>();
+  @Input() tire!: Tire;
+  @Output() tireSaved: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
   weightUnitsOptions;
@@ -38,7 +40,7 @@ export class CreateTireDialogComponent {
         label: "Tubular",
         value: "tubular"
       }
-    ]
+    ];
     this.form = this._fb.group({
       name: ["", Validators.required],
       brand: ["", Validators.required],
@@ -57,18 +59,37 @@ export class CreateTireDialogComponent {
       countryManufactured: [""],
       year: [""],
       icon: [""],
-    })
+      _id: [""]
+    });
+  }
+
+  ngOnChanges() {
+    if (this.tire) {
+      this.form.patchValue(this.tire);
+      this.form.controls['name'].disable();
+      this.form.controls['brand'].disable();
+      this.form.controls['width'].disable();
+      this.form.controls['widthUnits'].disable();
+      this.form.controls['wheelSize'].disable();
+    }
   }
 
   submit() {
-    console.log(this.form.getRawValue());
-    this._tireService.submitTire(this.form.getRawValue()).subscribe(result => {
-      console.log(result);
-      if (result) {
-        this.newTireSaved.emit();
-        this.form.reset();
-      }
-    })
+    if (this.tire) { //if we passed in a tire, we're editing an existing tire
+      this._tireService.editTire(this.form.getRawValue()).subscribe(result => {
+        if (result) {
+          this.tireSaved.emit();
+          this.form.reset();
+        }
+      });
+    } else { //otherwise we're creating a new one
+      this._tireService.submitTire(this.form.getRawValue()).subscribe(result => {
+        if (result) {
+          this.tireSaved.emit();
+          this.form.reset();
+        }
+      });
+    }
   }
 
 }

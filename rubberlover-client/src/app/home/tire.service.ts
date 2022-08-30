@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Tire } from './tire.model';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Tire } from './tire.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,10 @@ export class TireService {
   public submitTire(tire: Tire) {
     let body = JSON.stringify(tire);
     return this._httpClient.post(`${this.baseUrl}/tires/submit`, body, {headers: this.headers});
+  }
+  
+  public editTire(tire: Tire) {
+    let body = JSON.stringify(tire);
+    return this._httpClient.put(`${this.baseUrl}/tires/`, body, {headers: this.headers});
   }
 }

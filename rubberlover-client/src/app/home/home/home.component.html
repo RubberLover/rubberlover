@@ -1,20 +1,20 @@
-<p class="welcome-user" *ngIf="(currentUserName | async)">
-    Welcome, {{currentUserName | async}} 
+<p class="welcome-user" *ngIf="(currentUser | async)">
+    Welcome, {{(currentUser | async)?.name}} 
 </p>
 
 <p-dialog header="Add Tire" [(visible)]="createDialogShown">
     <app-create-tire-dialog
-        (newTireSaved)="onNewTireSaved($event)">
+        (tireSaved)="onTireSaved($event)">
     </app-create-tire-dialog>
 </p-dialog>
 
 <div class="content-wrapper">
     <div class="button-wrapper">
-        <i *ngIf="(currentUserName | async) === ''"
+        <i *ngIf="(currentUser | async) === null"
             class="pi pi-info-circle center-icon" 
             pTooltip="Must be logged in to add tires" tooltipPosition="top"></i>
         <button pButton type="button" (click)="showCreateDialog()" 
-            [disabled]="(currentUserName | async) === ''"
+            [disabled]="(currentUser | async) === null"
             icon="pi pi-plus" class="add-tire-button" label="Add Tire"></button>
     </div>
     <app-tire-table

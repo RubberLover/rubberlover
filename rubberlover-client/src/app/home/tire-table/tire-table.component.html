@@ -16,6 +16,7 @@
             <th *ngFor="let col of selectedColumns">
                 {{col}}
             </th>
+            <th *ngIf="isLoggedIn" ></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tire let-columns="columns">
@@ -42,6 +43,18 @@
                 {{tire.bicycleRollingResistanceArticle | toPrettyUrl}}
                </a>
             </td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded mr-2 edit-button" 
+                    *ngIf="isLoggedIn && canEditTire(tire)"(click)="editTire(tire)">
+                </button>
+            </td>
         </tr>
     </ng-template>
 </p-table>
+
+<p-dialog header="Edit Tire" [(visible)]="editDialogShown">
+    <app-create-tire-dialog
+    [tire]="selectedTire"
+    (tireSaved)="onTireSaved($event)">
+</app-create-tire-dialog>
+</p-dialog>
