@@ -7,7 +7,6 @@ View, compare, and share more details about your favorite bicycle tires.
 
 ### Table enhancements
 * make headers sticky https://www.primefaces.org/primeng/table/sticky
-* add table row edit https://www.primefaces.org/primeng/table/edit
 * store filter/sort in session storage https://www.primefaces.org/primeng/table/state
 * implement sort https://www.primefaces.org/primeng/table/sort
 * implement filter https://www.primefaces.org/primeng/table/filter  
@@ -27,3 +26,4 @@ View, compare, and share more details about your favorite bicycle tires.
 * unit selector
 * deploy to beta heroku server
 * add column toggling https://www.primefaces.org/primeng/table/coltoggle
+* add table row edit https://www.primefaces.org/primeng/table/edit

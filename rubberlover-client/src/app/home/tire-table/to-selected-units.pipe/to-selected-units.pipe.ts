@@ -7,17 +7,20 @@ export class ToSelectedUnitsPipe implements PipeTransform {
 
   transform(value: number, unitFrom: string, unitTo: string): number {
     console.log(`${value} from ${unitFrom} to ${unitTo}`);
-    if (unitFrom === 'g' && unitTo === 'g') {
-      return value;
-    }
-    if (unitFrom === 'oz' && unitTo === 'oz') {
+    if (unitFrom === unitTo) {
       return value;
     }
     if (unitFrom === 'g' && unitTo === 'oz') {
-      return Math.round(value * 0.035274);
+      return Math.round(value * 3.5274)/100;
     }
     if (unitFrom === 'oz' && unitTo === 'g') {
       return Math.round(value * 28.3495);
+    }
+    if (unitFrom === 'mm' && unitTo === 'inch') {
+      return Math.round(value * 3.93701)/100;
+    }
+    if (unitFrom === 'inch' && unitTo === 'mm') {
+      return Math.round(value * 25.4);
     }
     return 0;
   }

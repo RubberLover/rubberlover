@@ -2,6 +2,7 @@
     [columns]="selectedColumns" 
     [value]="tires" 
     responsiveLayout="scroll" 
+    (sortFunction)="customSort($event)" [customSort]="true"
     styleClass="p-datatable-striped p-datatable-sm">
     <ng-template pTemplate="caption">
         <p-multiSelect [options]="headers" [(ngModel)]="selectedColumns" 
@@ -13,15 +14,26 @@
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of selectedColumns">
-                {{col}}
-            </th>
+            <th *ngIf="selectedColumns.includes('Name')" [pSortableColumn]="'name'">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Brand')" [pSortableColumn]="'brand'">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Weight')" [pSortableColumn]="'weight'">Weight <p-sortIcon field="weight"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Width')" [pSortableColumn]="'width'">Width  <p-sortIcon field="width"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Wheel Size')" [pSortableColumn]="'wheelSize'">Wheel Size <p-sortIcon field="wheelSize"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Tire Type')" [pSortableColumn]="'tireType'">Tire Type <p-sortIcon field="tireType"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Casing')" [pSortableColumn]="'casingType'">Casing <p-sortIcon field="casingType"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Color')" [pSortableColumn]="'color'">Color <p-sortIcon field="color"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Tread Pattern')" [pSortableColumn]="'treadPattern'">Tread Pattern <p-sortIcon field="treadPattern"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Made In')" [pSortableColumn]="'countryManufactured'">Made In <p-sortIcon field="countryManufactured"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Year')" [pSortableColumn]="'year'">Year <p-sortIcon field="year"></p-sortIcon></th>
+            <th *ngIf="selectedColumns.includes('Sources')">Sources</th>
+            <th *ngIf="selectedColumns.includes('BBR Article')">BRR Article</th>
+
             <th *ngIf="isLoggedIn" ></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tire let-columns="columns">
         <tr>
-            <td *ngIf="selectedColumns.includes('Name')">{{tire.name}}</td>
+            <td *ngIf="selectedColumns.includes('Name')">{{tire.name}} </td>
             <td *ngIf="selectedColumns.includes('Brand')" >{{tire.brand}}</td>
             <td *ngIf="selectedColumns.includes('Weight')" >{{tire.weight | toSelectedUnits:tire.weightUnits:selectedWeightUnit}}{{selectedWeightUnit}}</td>
             <td *ngIf="selectedColumns.includes('Width')" >{{tire.width}}{{tire.widthUnits}}</td>

@@ -1,5 +1,54 @@
 import mongoose from 'mongoose';
 
+enum ValidWeightUnits {
+  g = 'g',
+  oz = 'oz',
+}
+
+function validateWeightUnits(unit: string) : boolean {
+  return unit in ValidWeightUnits;
+}
+
+enum ValidWidthUnits {
+  mm = 'mm',
+  inch = 'inch',
+}
+
+function validateWidthUnits(unit: string) : boolean {
+  return unit in ValidWidthUnits;
+}
+
+enum ValidWheelSizes {
+  size650b = '650b/27.5"',
+  size700c = '700c/29"',
+  size650c = '650c',
+  size26 = '26',
+}
+
+function validateWheelSize(size: string) : boolean {
+  return Object.values(ValidWheelSizes).includes(size as unknown as ValidWheelSizes);
+}
+
+enum ValidTireType {
+  tube = 'tube',
+  tubular = 'tubular',
+  tubelessHooked = 'tubelessHooked',
+  tubelessHooless = 'tubelessHookless',
+}
+
+function validateTireType(type: string) : boolean {
+  return Object.values(ValidTireType).includes(type as unknown as ValidTireType);
+}
+
+function validateUrl(possibleUrl: string) : boolean {
+  if (possibleUrl === '') return true;
+  try {
+    return Boolean(new URL(possibleUrl));
+  } catch (_) {
+    return false;
+  }
+}
+
 const TireSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,153 +62,104 @@ const TireSchema = new mongoose.Schema({
   },
   weight: {
     type: Number,
-    required: true
+    required: true,
   },
   width: {
     type: Number,
-    required: true
+    required: true,
   },
   weightUnits: {
     type: String,
     required: true,
-    validate: [validateWeightUnits]
+    validate: [validateWeightUnits],
   },
   widthUnits: {
     type: String,
     required: true,
-    validate: [validateWidthUnits]
+    validate: [validateWidthUnits],
   },
   wheelSize: {
     type: String,
     required: true,
-    validate: [validateWheelSize]
+    validate: [validateWheelSize],
   },
   tireType: {
     type: String,
     required: true,
-    validate: [validateTireType]
+    validate: [validateTireType],
   },
   sources: [{
     type: String,
-    validate: [validateUrl]
+    validate: [validateUrl],
   }],
   approved: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
   },
   approvedBy: {
     type: String,
-    required: false
+    required: false,
   },
   retired: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
   },
   createdBy: {
     type: String,
-    required: true
+    required: true,
   },
   dateCreated: {
     type: Date,
     required: true,
-    default: Date.now()
+    default: Date.now(),
   },
   dateApproved: {
     type: Date,
-    required: false
+    required: false,
   },
   dateRetired: {
     type: Date,
-    required: false
+    required: false,
   },
   bicycleRollingResistanceArticle: {
     type: String,
     validate: [validateUrl],
-    required: false
+    required: false,
   },
   tpi: {
     type: String,
-    required: false
+    required: false,
   },
   color: {
     type: String,
-    required: false
+    required: false,
   },
   casingType: {
     type: String,
-    required: false
+    required: false,
   },
   countryManufactured: {
     type: String,
-    required: false
+    required: false,
   },
   treadPattern: {
     type: String,
-    required: false
+    required: false,
   },
   year: {
     type: Number,
-    required: false
+    required: false,
   },
   icon: {
     type: String,
     validate: [validateUrl],
-    required: false
-  }
+    required: false,
+  },
 });
 
-enum validWeightUnits {
-  g = 'g',
-  oz = 'oz'
-}
-
-function validateWeightUnits(unit: string) : boolean {
-  return unit in validWeightUnits;
-}
-
-enum validWidthUnits {
-  mm = 'mm',
-  inch = 'inch'
-}
-
-function validateWidthUnits(unit: string) : boolean {
-  return unit in validWidthUnits;
-}
-
-enum validWheelSizes {
-  size650b = '650b/27.5"',
-  size700c = '700c/29"',
-  size650c = '650c',
-  size26 = '26'
-}
-
-function validateWheelSize(size: string) : boolean {
-  return Object.values(validWheelSizes).includes(size as unknown as validWheelSizes);
-}
-
-enum validTireType {
-  tube = 'tube',
-  tubular = 'tubular',
-  tubelessHooked = 'tubelessHooked',
-  tubelessHooless = 'tubelessHookless'
-}
-
-function validateTireType(type: string) : boolean {
-  return Object.values(validTireType).includes(type as unknown as validTireType);
-}
-
-function validateUrl(possibleUrl: string) : boolean {
-  if (possibleUrl === "") return true;
-  try {
-    return Boolean(new URL(possibleUrl));
-  } catch (_) {
-    return false;
-  }
-}
-
-TireSchema.index({name: 1, brand: 1, width: 1, wheelSize: 1}, {unique: true}); //set that a tire must be unique with name, brand, width, and wheel size 
+TireSchema.index({ name: 1, brand: 1, width: 1, wheelSize: 1 }, { unique: true }); //set that a tire must be unique with name, brand, width, and wheel size 
 const TireModel = mongoose.model('Tire', TireSchema);
 
 export default TireModel;
