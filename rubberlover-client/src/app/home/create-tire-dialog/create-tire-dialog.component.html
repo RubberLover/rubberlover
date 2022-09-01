@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <form [formGroup]="form" class="form">
         <div class="form-fields">
             <div class="required-fields">
                 <p-divider align="center">
@@ -44,10 +44,21 @@
                         placeholder="Units" [showClear]="true" class="units-dropdown">
                     </p-dropdown>
                 </div>
-                <div class="sources">
-                    <label for="sources-input">Sources:</label>
-                    <p-chips id="sources-input" class="form-input chips" formControlName="sources"></p-chips>
-                    <small>Press Enter after inputting each link to add to the list</small>
+
+
+                <div class="sources-wrapper" formArrayName="sources">
+                    <span for="sources-input">Sources:</span>
+                    <div *ngFor="let control of sourcesArray.controls; let i = index" class="sources wide">
+                        <input id="float-input" [formControlName]="i" type="text" pInputText>
+                        <button pButton pRipple type="button" icon="pi pi-times" 
+                            class="p-button-rounded p-button-danger p-button-text" 
+                            (click)="deleteSource(i)" 
+                            [disabled]="sourcesArray.length <= 1"></button>
+                    </div>
+                    <button pButton pRipple type="button" 
+                        class="p-button-action p-button-text add-source-button"
+                        (click)="addSource()"
+                        >Add Source</button>
                 </div>    
             </div>
             <p-divider layout="vertical">
@@ -99,7 +110,7 @@
             type="button"
             label="Save"
             class="form-button"
-            type="submit"
+            (click)="submit()"
             [disabled]="!form.valid"
              ></button>
     </form>

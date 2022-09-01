@@ -1,6 +1,6 @@
 .form-input {
     margin: 10px;
-    &.wide > input{
+    &.wide input{
         min-width: 100%
     }
 }
@@ -26,17 +26,25 @@
 }
 
 .sources {
-    label, small {
-        margin-left: 10px
-    }
+    margin: 10px;
     display: flex;
-    flex-direction: column;
-    .chips > div > ul {
-        min-width: 100%;
-        ul {
-            min-width: 100%;
-        }
+    flex-direction: row;
+    .source-inputs {
+        flex-direction: row;
     }
+    input {
+        width: 93%;
+    }
+}
+
+.sources-wrapper {
+    label, small {
+        margin: 10px;
+    } 
+}
+
+.add-source-button {
+    float: right;
 }
 
 .form-button {
@@ -46,3 +54,7 @@
 .required-fields, .optional-fields {
     min-width: 400px;
 }
+
+input.ng-dirty.ng-invalid {
+    color: red
+  }

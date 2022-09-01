@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Tire } from '../tire.model';
 import { TireService } from '../tire.service';
 
@@ -50,7 +50,7 @@ export class CreateTireDialogComponent {
       weightUnits: ["", Validators.required],
       wheelSize: ["", Validators.required],
       tireType: ["", Validators.required],
-      sources: ["", Validators.required],
+      sources:  this._fb.array([], [Validators.required]),
       bicycleRollingResistanceArticle: [""],
       tpi: [""],
       treadPattern: [""],
@@ -61,9 +61,13 @@ export class CreateTireDialogComponent {
       icon: [""],
       _id: [""]
     });
+
+    const sourceControl = this._fb.control("", [Validators.required, this.IsValidURL]);
+    this.sourcesArray.push(sourceControl);
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     if (this.tire) {
       this.form.patchValue(this.tire);
       this.form.controls['name'].disable();
@@ -71,25 +75,65 @@ export class CreateTireDialogComponent {
       this.form.controls['width'].disable();
       this.form.controls['widthUnits'].disable();
       this.form.controls['wheelSize'].disable();
+      
+      this.sourcesArray.clear();
+      this.tire.sources.forEach(source => {
+        this.addExistingSource(source);
+      });
     }
   }
 
   submit() {
+    this.form.setControl('sources', this.sourcesArray);
     if (this.tire) { //if we passed in a tire, we're editing an existing tire
       this._tireService.editTire(this.form.getRawValue()).subscribe(result => {
         if (result) {
           this.tireSaved.emit();
           this.form.reset();
+          this.sourcesArray.reset();
         }
       });
     } else { //otherwise we're creating a new one
+      this.form.removeControl('_id');
       this._tireService.submitTire(this.form.getRawValue()).subscribe(result => {
         if (result) {
           this.tireSaved.emit();
           this.form.reset();
+          this.sourcesArray.reset();
         }
       });
     }
+  }
+
+  public get sourcesArray() : FormArray{
+    return this.form.controls['sources'] as FormArray;
+  }
+
+  addSource() {
+    const sourceControl = this._fb.control("", [Validators.required, this.IsValidURL]);
+    this.sourcesArray.push(sourceControl);
+  }
+
+  addExistingSource(source: string) {
+    const sourceControl = this._fb.control(source, [Validators.required, this.IsValidURL]);
+    this.sourcesArray.push(sourceControl);
+  }
+
+  deleteSource(sourceIndex: number) {
+    this.sourcesArray.removeAt(sourceIndex);
+  }
+
+  IsValidURL(control: FormControl) : ValidationErrors {
+    console.log(control.value);
+    if (!control.value) return {urlEmpty: true};
+    try {
+      new URL(control.value);
+    }
+    catch (error: any) {
+      console.log("invalid");
+      return {invalidUrl: true};
+    }
+    return {};
   }
 
 }
