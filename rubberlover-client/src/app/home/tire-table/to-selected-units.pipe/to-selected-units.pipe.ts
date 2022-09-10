@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ToSelectedUnitsPipe implements PipeTransform {
 
   transform(value: number, unitFrom: string, unitTo: string): number {
-    console.log(`${value} from ${unitFrom} to ${unitTo}`);
     if (unitFrom === unitTo) {
       return value;
     }

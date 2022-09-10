@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'tireType'
+  name: 'toPrettyTireType'
 })
 export class TireTypePipe implements PipeTransform {
 

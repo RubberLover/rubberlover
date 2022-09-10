@@ -16,9 +16,9 @@ export class TireService {
   headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
   
-  public approve() {
+  public approve(id: string) {
     let body = {
-      "_id": "63082936c9585692776a6d0a",
+      "_id": id,
     }
     return this._httpClient.put(`${this.baseUrl}/tires/approve`, body);
   }

@@ -104,7 +104,6 @@
 
             </div>
         </div>
-        
         <button
             pButton
             type="button"
@@ -113,6 +112,15 @@
             (click)="submit()"
             [disabled]="!form.valid"
              ></button>
+        <button
+             pButton
+             type="button"
+             class="p-button-text form-button"
+             (click)="approve()"
+             [hidden]="!isAdmin"
+             *ngIf="!tire?.approved"
+             >Approve <i class="pi pi-check" style="margin-left:5px"></i>
+             </button>
     </form>
 
 </div>

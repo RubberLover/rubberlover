@@ -23,12 +23,14 @@ export class TireTableComponent implements OnInit {
   editDialogShown = false;
   isLoggedIn = false;
   loading = false;
-
+  tireBrands: string[] = [];
+  wheelSizes: string[] = [];
+  tireTypes: string[] = [];
+ 
   constructor(private _tireSerivce: TireService, private _userService: UserService) {
     this.loading = true;
     this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
-      this.tires = tires;
-      this.loading = false;
+      this.updateTable(tires);
     });
 
     this.headers = [
@@ -36,17 +38,23 @@ export class TireTableComponent implements OnInit {
       "Wheel Size", "Tire Type", "Casing", "Color",
       "Tread Pattern", "Made In", "Sources", "BRR Article", "Year"
     ]
-    this._selectedColumns = this.headers.slice(0,10);
+    this._selectedColumns = this.headers.slice(0,8);
     this.isLoggedIn = this._userService.currentUser$?.value !== null; 
   }
   ngOnInit(): void {
     this.tireAddedSubject?.subscribe(_ => {
       this.loading = true;
       this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
-        this.tires = tires;
-        this.loading = false;
+        this.updateTable(tires);
       })
     });
+  }
+  private updateTable(tires: Tire[]) {
+    this.tires = tires;
+    this.loading = false;
+    this.tireBrands = [...new Set<string>(this.tires.map(tire => tire.brand))];
+    this.wheelSizes = [...new Set<string>(this.tires.map(tire => tire.wheelSize))];
+    this.tireTypes = [...new Set<string>(this.tires.map(tire => tire.tireType))];
   }
 
   @Input() get selectedColumns(): any[] {
@@ -70,6 +78,10 @@ export class TireTableComponent implements OnInit {
 
   canEditTire(tire: Tire) {
     return this._userService.canEditTire(tire);
+  }
+
+  filterCallback(event: any) {
+    console.log(event);
   }
 
   customSort(event: SortEvent) {

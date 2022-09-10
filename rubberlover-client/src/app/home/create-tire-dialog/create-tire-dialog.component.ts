@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UserService } from 'src/app/login/user.service';
 import { Tire } from '../tire.model';
 import { TireService } from '../tire.service';
 
@@ -17,8 +18,9 @@ export class CreateTireDialogComponent {
   widthUnitsOptions;
   wheelSizeOptions;
   tireTypeOptions;
+  isAdmin = false;
 
-  constructor(private _fb: FormBuilder, private _tireService: TireService) { 
+  constructor(private _fb: FormBuilder, private _tireService: TireService, private _userService: UserService) { 
     this.weightUnitsOptions = ["g", "oz"];
     this.widthUnitsOptions = ["mm", "inch"];
 
@@ -64,6 +66,8 @@ export class CreateTireDialogComponent {
 
     const sourceControl = this._fb.control("", [Validators.required, this.IsValidURL]);
     this.sourcesArray.push(sourceControl);
+
+    this.isAdmin = this._userService.currentUser$.value?.role === "admin";
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -105,6 +109,16 @@ export class CreateTireDialogComponent {
     }
   }
 
+  approve() {
+    if (this.isAdmin) {
+      this._tireService.approve(this.form.controls['_id'].value).subscribe(result => {
+        if (result) {
+          this.tireSaved.emit();
+        }
+      });
+    }
+  }
+
   public get sourcesArray() : FormArray{
     return this.form.controls['sources'] as FormArray;
   }
@@ -130,7 +144,6 @@ export class CreateTireDialogComponent {
       new URL(control.value);
     }
     catch (error: any) {
-      console.log("invalid");
       return {invalidUrl: true};
     }
     return {};
