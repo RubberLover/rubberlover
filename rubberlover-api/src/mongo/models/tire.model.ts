@@ -5,7 +5,7 @@ enum ValidWeightUnits {
   oz = 'oz',
 }
 
-function validateWeightUnits(unit: string) : boolean {
+export function validateWeightUnits(unit: string) : boolean {
   return unit in ValidWeightUnits;
 }
 
@@ -14,7 +14,7 @@ enum ValidWidthUnits {
   inch = 'inch',
 }
 
-function validateWidthUnits(unit: string) : boolean {
+export function validateWidthUnits(unit: string) : boolean {
   return unit in ValidWidthUnits;
 }
 
