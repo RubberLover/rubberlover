@@ -14,6 +14,23 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    if (req.params.id) {
+      const tire = await TireModel.findById(req.params.id);
+      if (tire) {
+        res.send(tire);
+      } else {
+        res.sendStatus(404);
+      }
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.post('/submit', userAuth, async (req: Request, res: Response) => {
   const tire = new TireModel(req.body);
   tire.createdBy = res.locals.id;
