@@ -22,7 +22,7 @@ export class TireTableComponent implements OnInit {
   selectedWeightUnit: string = 'g';
   selectedTire!: Tire;
   editDialogShown = false;
-  isLoggedIn = false;
+  isLoggedIn = false;; 
   loading = false;
   tireBrands: string[] = [];
   wheelSizes: string[] = [];
@@ -40,7 +40,14 @@ export class TireTableComponent implements OnInit {
       "Tread Pattern", "Made In", "Sources", "BRR Article", "Year"
     ]
     this._selectedColumns = this.headers.slice(0,8);
-    this.isLoggedIn = this._userService.currentUser$?.value !== null; 
+    this._userService.currentUser$?.subscribe(user => {
+      if (user) {
+        this.isLoggedIn = true;
+      }
+      else {
+        this.isLoggedIn = false;
+      }
+    });
   }
   ngOnInit(): void {
     this.tireAddedSubject?.subscribe(_ => {

@@ -89,9 +89,9 @@
                     <i *ngIf="tire.approved" class="pi pi-check verified"></i>
                 </div>
             </td>
-            <td class="edit-icon-column">
+            <td class="edit-icon-column" *ngIf="isLoggedIn">
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded mr-2 edit-button" 
-                    *ngIf="isLoggedIn && canEditTire(tire)"(click)="editTire(tire)">
+                    *ngIf="isLoggedIn && canEditTire(tire)" (click)="editTire(tire)">
                 </button>
             </td>
         </tr>
