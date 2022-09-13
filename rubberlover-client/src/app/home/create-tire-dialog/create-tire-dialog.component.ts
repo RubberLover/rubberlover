@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { UserService } from 'src/app/login/user.service';
+import { tireTypeOptions, weightUnitsOptions, wheelSizeOptions, widthUnitsOptions } from 'src/app/shared/constants';
 import { Tire } from '../tire.model';
 import { TireService } from '../tire.service';
 
@@ -14,35 +16,13 @@ export class CreateTireDialogComponent {
   @Output() tireSaved: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
-  weightUnitsOptions;
-  widthUnitsOptions;
-  wheelSizeOptions;
-  tireTypeOptions;
+  weightUnitsOptions = weightUnitsOptions;
+  widthUnitsOptions = widthUnitsOptions;
+  wheelSizeOptions = wheelSizeOptions;
+  tireTypeOptions = tireTypeOptions;
   isAdmin = false;
 
-  constructor(private _fb: FormBuilder, private _tireService: TireService, private _userService: UserService) { 
-    this.weightUnitsOptions = ["g", "oz"];
-    this.widthUnitsOptions = ["mm", "inch"];
-
-    this.wheelSizeOptions = ["700c/29\"", "650b/27.5\"", "650c", "26"];
-    this.tireTypeOptions = [
-      {
-        label: "Tubed Clincher",
-        value: "tube"
-      },
-      {
-        label: "Tubeless - Hooked",
-        value: "tubelessHooked"
-      },
-      {
-        label: "Tubeless - Hookless",
-        value: "tubelessHookless"
-      },
-      {
-        label: "Tubular",
-        value: "tubular"
-      }
-    ];
+  constructor(private _fb: FormBuilder, private _tireService: TireService, private _userService: UserService, private _confirmationService: ConfirmationService) { 
     this.form = this._fb.group({
       name: ["", Validators.required],
       brand: ["", Validators.required],
@@ -70,8 +50,7 @@ export class CreateTireDialogComponent {
     this.isAdmin = this._userService.currentUser$.value?.role === "admin";
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+  ngOnChanges(_: SimpleChanges) {
     if (this.tire) {
       this.form.patchValue(this.tire);
       this.form.controls['name'].disable();
@@ -137,8 +116,15 @@ export class CreateTireDialogComponent {
     this.sourcesArray.removeAt(sourceIndex);
   }
 
+  deleteTire() {
+    this._confirmationService.confirm({message: "Are you sure you want to delete this tire?", accept: () => {
+      this._tireService.deleteTire(this.tire._id).subscribe(_ => {
+        this.tireSaved.emit();
+      });
+    }})
+  }
+
   IsValidURL(control: FormControl) : ValidationErrors {
-    console.log(control.value);
     if (!control.value) return {urlEmpty: true};
     try {
       new URL(control.value);

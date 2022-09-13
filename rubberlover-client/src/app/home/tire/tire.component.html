@@ -1,0 +1,23 @@
+<div *ngIf="tire;else loading" class="tire-wrapper">
+    <h2 class="title">
+        {{tire.year}} {{tire.brand}} {{tire.name}} {{tire.width}}{{tire.widthUnits}}
+    </h2>
+    <p-tabView>
+        <p-tabPanel header="Overview">
+            Tire Overview coming soon. Head over to the Actual Measurements tab for now!
+        </p-tabPanel>
+        <p-tabPanel header="Actual Measurements">
+            <app-wam [tireId]="tire._id">
+
+            </app-wam>
+        </p-tabPanel>
+        <p-tabPanel header="Reviews">
+            Tire reviews coming soon!
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<ng-template #loading>
+    Loading tire...
+</ng-template>
+

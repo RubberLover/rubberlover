@@ -1,0 +1,45 @@
+.wam-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+    .weights, .widths {
+        margin: 5px;
+        width: 50%;
+    }
+}
+
+.submit-button {
+    float:right; 
+    margin-top: -8px;
+    margin-left: 5px;
+}
+
+.delete-button {
+    float: right;
+    display: none;
+    margin-top: -8px;
+}
+
+.measurement-row {
+    padding: 5px;
+}
+.measurement-row:hover {
+    .delete-button {
+        display: block;
+        color: #ff6259;
+    }
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+    .wam-wrapper {
+        flex-direction: column;
+        .weights, .widths {
+            width: 100%;
+        }
+    }
+    .divider {
+        display: none;
+    }
+}

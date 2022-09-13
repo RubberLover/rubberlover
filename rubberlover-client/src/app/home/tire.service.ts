@@ -27,6 +27,10 @@ export class TireService {
     return this._httpClient.get<Tire[]>(`${this.baseUrl}/tires`);
   }
 
+  public getTireById(id: string): Observable<Tire> {
+    return this._httpClient.get<Tire>(`${this.baseUrl}/tires/${id}`);
+  }
+
   public submitTire(tire: Tire) {
     let body = JSON.stringify(tire);
     return this._httpClient.post(`${this.baseUrl}/tires/submit`, body, {headers: this.headers});
@@ -36,4 +40,7 @@ export class TireService {
     let body = JSON.stringify(tire);
     return this._httpClient.put(`${this.baseUrl}/tires/`, body, {headers: this.headers});
   }
-}
+
+  public deleteTire(id: string): Observable<string> {
+    return this._httpClient.delete<string>(`${this.baseUrl}/tires/${id}`, {responseType: 'text' as 'json'});
+  }}

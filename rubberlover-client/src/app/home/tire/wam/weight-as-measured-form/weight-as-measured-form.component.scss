@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    .long-row-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    
+        span {
+            margin: 5px;
+        }
+    
+        .form-input-number.psi > input, .form-input-number.width  > input {
+            width: 130px;
+        }
+    
+        .break {
+            flex-basis: 100%;
+            height: 0;
+        }
+    }
+    button {
+        justify-self: right;
+    }
+}
+
+

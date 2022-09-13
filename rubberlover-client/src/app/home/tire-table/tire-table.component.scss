@@ -16,9 +16,25 @@
 }
 
 .table-modifiers {
+    display: flex;
+    flex-direction: row;
     margin: 5px;
     * {
         margin-left: 10px;
+    }
+}
+
+td, th {
+    width: 150px;
+    &.name {
+        width: 200px;   
+    }
+    &.edit-icon-column {
+        width: 50px;
+    }
+
+    &.sources-column {
+        width: 200px;
     }
 }
 

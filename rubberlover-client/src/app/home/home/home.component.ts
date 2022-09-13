@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { map, Observable, Subject, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { User } from 'src/app/login/models/user.model';
 import { UserService } from 'src/app/login/user.service';
 
@@ -46,6 +46,4 @@ export class HomeComponent implements OnInit {
     this.createDialogShown = false;
     this.tireAddedSubject.next(null);
   }
-
-
 }

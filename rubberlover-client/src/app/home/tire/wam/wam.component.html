@@ -1,0 +1,68 @@
+<div class="wam-wrapper">
+    <div class="widths">
+        <h3>User Submitted Widths
+            <button
+             pButton
+             type="button"
+             class="p-button-text submit-button"
+             (click)="addingNewWidth = !addingNewWidth"
+             >Submit Width <i class="pi pi-plus" style="margin-left:5px"></i>
+             </button>
+        </h3>
+        <div *ngIf="addingNewWidth">
+            <app-width-as-measured-form 
+                [tireId]="tireId"
+                (widthSubmitted)="onWidthSubmitted($event)">
+            </app-width-as-measured-form>
+        </div>
+        <div *ngFor="let wam of wamWidths" class="measurement-row">
+            <b>{{wam.dateCreated | date}} </b> 
+            - <i>{{wam.createdByName}}</i> reported {{wam.width}}{{wam.widthUnits}} 
+            on a {{wam.rimInnerWidthMM}}mm internal rim at {{wam.psi}}psi
+            <button
+                pButton
+                *ngIf="canDelete(wam)"
+                (click)="deleteWam(wam, false)"
+                type="button"
+                class="p-button-sm p-button-icon p-button-rounded p-button-text delete-button"
+                icon="pi pi-trash">
+             </button>
+        </div>
+    </div>
+    <p-divider layout="vertical" class="divider">
+    </p-divider>
+    <div class="weights">
+        <h3>User Submitted Weights
+            <button
+            pButton
+            type="button"
+            class="p-button-text submit-button"
+            (click)="addingNewWeight = !addingNewWeight"
+            >Submit Weight <i class="pi pi-plus" style="margin-left:5px"></i>
+            </button>
+            <p-selectButton class="submit-button" [options]="['g', 'oz']" [(ngModel)]="selectedWeightUnit"></p-selectButton>
+        </h3>
+        <div *ngIf="addingNewWeight">
+            <app-weight-as-measured-form
+                [tireId]="tireId"
+                (weightSubmitted)="onWeightSubmitted($event)">
+            </app-weight-as-measured-form>
+        </div>
+        <div *ngFor="let wam of wamWeights">
+            <div *ngIf="wam.weight && wam.weightUnits" class="measurement-row">
+                <b>{{wam.dateCreated | date}} </b> 
+                - <i>{{wam.createdByName}}</i> reported {{wam.weight| toSelectedUnits:wam.weightUnits:selectedWeightUnit}}{{selectedWeightUnit}} 
+                <button
+                    pButton
+                    *ngIf="canDelete(wam)"
+                    (click)="deleteWam(wam, true)"
+                    type="button"
+                    class="p-button-sm p-button-icon p-button-rounded p-button-text delete-button"
+                    icon="pi pi-trash">
+                 </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>

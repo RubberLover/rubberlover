@@ -23,4 +23,5 @@ export class Tire {
     treadPattern: string = "";
     year: number = 0;
     icon: string = "";
+    _id: string = "";
 }

@@ -2,6 +2,8 @@
     [columns]="selectedColumns" 
     [value]="tires" 
     responsiveLayout="scroll" 
+    scrollDirection="both"
+    [scrollable]="true"
     (sortFunction)="customSort($event)" [customSort]="true"
     [globalFilterFields]="['name','brand','wheelSize','tireType']"
     styleClass="p-datatable-striped p-datatable-sm">
@@ -9,14 +11,11 @@
         <div class="table-modifiers">
             <p-multiSelect [options]="headers" [(ngModel)]="selectedColumns" 
             selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
-        <p-dropdown [options]="['g','oz']" [(ngModel)]="selectedWeightUnit"
-            placeholder="Units" class="units-dropdown">
-        </p-dropdown>
+            <p-selectButton [options]="['g', 'oz']" [(ngModel)]="selectedWeightUnit"></p-selectButton>
         </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngIf="selectedColumns.includes('Name')" [pSortableColumn]="'name'">Name <p-sortIcon field="name"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Brand')" 
                 [pSortableColumn]="'brand'"
                 >Brand <p-sortIcon field="brand"></p-sortIcon>
@@ -27,6 +26,7 @@
                                 <div>
                                     <span class="ml-1">{{option}}</span></div></ng-template></p-multiSelect></ng-template></p-columnFilter>
             </th>
+            <th class="name" *ngIf="selectedColumns.includes('Name')" [pSortableColumn]="'name'">Name <p-sortIcon field="name"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Weight')" [pSortableColumn]="'weight'">Weight <p-sortIcon field="weight"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Width')" [pSortableColumn]="'width'">Width  <p-sortIcon field="width"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Wheel Size')" 
@@ -52,18 +52,18 @@
             <th *ngIf="selectedColumns.includes('Tread Pattern')" [pSortableColumn]="'treadPattern'">Tread Pattern <p-sortIcon field="treadPattern"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Made In')" [pSortableColumn]="'countryManufactured'">Made In <p-sortIcon field="countryManufactured"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Year')" [pSortableColumn]="'year'">Year <p-sortIcon field="year"></p-sortIcon></th>
-            <th *ngIf="selectedColumns.includes('Sources')">Sources</th>
+            <th class="sources-column" *ngIf="selectedColumns.includes('Sources')">Sources</th>
             <th *ngIf="selectedColumns.includes('BBR Article')">BRR Article</th>
 
             <th [pSortableColumn]="'approved'">Verified <p-sortIcon field="approved"></p-sortIcon><p-columnFilter type="boolean" field="approved" display="menu"></p-columnFilter></th>
 
-            <th *ngIf="isLoggedIn" ></th>
+            <th *ngIf="isLoggedIn" class="edit-icon-column" ></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tire let-columns="columns">
         <tr>
-            <td *ngIf="selectedColumns.includes('Name')">{{tire.name}} </td>
             <td *ngIf="selectedColumns.includes('Brand')" >{{tire.brand}}</td>
+            <td class="name" *ngIf="selectedColumns.includes('Name')"><a [routerLink]="['/tire', tire._id]" routerLinkActive="router-link-active" >{{tire.name}}</a></td>
             <td *ngIf="selectedColumns.includes('Weight')" >{{tire.weight | toSelectedUnits:tire.weightUnits:selectedWeightUnit}}{{selectedWeightUnit}}</td>
             <td *ngIf="selectedColumns.includes('Width')" >{{tire.width}}{{tire.widthUnits}}</td>
             <td *ngIf="selectedColumns.includes('Wheel Size')" >{{tire.wheelSize}}</td>
@@ -73,7 +73,7 @@
             <td *ngIf="selectedColumns.includes('Tread Pattern')" >{{tire.treadPattern}}</td>
             <td *ngIf="selectedColumns.includes('Made In')" >{{tire.countryManufactured}}</td>
             <td *ngIf="selectedColumns.includes('Year')" >{{tire.year}}</td>
-            <td *ngIf="selectedColumns.includes('Sources')" class="sources" >
+            <td *ngIf="selectedColumns.includes('Sources')" class="sources sources-column" >
                 <a *ngFor="let source of tire.sources" 
                     class="source"
                     href="{{source}}" target="_blank">{{(source | toPrettyUrl)}}
@@ -89,7 +89,7 @@
                     <i *ngIf="tire.approved" class="pi pi-check verified"></i>
                 </div>
             </td>
-            <td>
+            <td class="edit-icon-column">
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded mr-2 edit-button" 
                     *ngIf="isLoggedIn && canEditTire(tire)"(click)="editTire(tire)">
                 </button>

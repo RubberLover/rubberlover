@@ -36,6 +36,10 @@ const WAMSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdByName: {
+    type: String,
+    required: true,
+  },
   dateCreated: {
     type: Date,
     required: true,

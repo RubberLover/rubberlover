@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { adminAuth, authorAuth, userAuth } from '../middlewares';
 import TireModel from '../mongo/models/tire.model';
+import WAMModel from '../mongo/models/wam.model';
 
 
 const router = express.Router();
@@ -66,6 +67,17 @@ router.put('/approve', adminAuth, async (req: Request, res: Response) => {
     });
 });
 
-
+router.delete('/:id', adminAuth, async (req: Request, res: Response) => {
+  try {
+    const tire = await TireModel.findById(req.params.id);
+    if (tire) {
+      await TireModel.deleteOne({ _id: req.params.id });
+      await WAMModel.deleteMany({ tireId: req.params.id });
+      res.sendStatus(200);
+    }
+  } catch (error: any) {
+    res.status(500).send(error);
+  }
+});
 
 export default router;

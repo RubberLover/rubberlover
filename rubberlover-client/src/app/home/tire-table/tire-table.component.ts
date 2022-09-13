@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SortEvent } from 'primeng/api';
 import { Subject, take } from 'rxjs';
 import { UserService } from 'src/app/login/user.service';
@@ -27,7 +28,7 @@ export class TireTableComponent implements OnInit {
   wheelSizes: string[] = [];
   tireTypes: string[] = [];
  
-  constructor(private _tireSerivce: TireService, private _userService: UserService) {
+  constructor(private _tireSerivce: TireService, private _userService: UserService, private _router: Router) {
     this.loading = true;
     this._tireSerivce.getAllTires().pipe(take(1)).subscribe(tires => {
       this.updateTable(tires);
@@ -82,6 +83,9 @@ export class TireTableComponent implements OnInit {
 
   filterCallback(event: any) {
     console.log(event);
+  }
+  navigateToTire(tireId: string) {
+    this._router.navigate(['/tire/', tireId])
   }
 
   customSort(event: SortEvent) {

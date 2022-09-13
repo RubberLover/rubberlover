@@ -21,6 +21,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.post('/', userAuth, async (req: Request, res: Response) => {
   const wam = new WAMModel(req.body);
   wam.createdBy = res.locals.id;
+  wam.createdByName = res.locals.name;
   try {
     await wam.save();
     res.send(wam);
@@ -30,10 +31,9 @@ router.post('/', userAuth, async (req: Request, res: Response) => {
 });
 
 router.delete('/:id', adminAuth, async (req: Request, res: Response) => {
-  const wamRecord = await WAMModel.findByIdAndDelete(req.params.id);
   try {
-    await wamRecord?.delete();
-    res.send(200);
+    await WAMModel.deleteOne({ _id: req.params.id });
+    res.sendStatus(200);
   } catch (error: any) {
     res.status(500).send(error);
   }
