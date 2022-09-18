@@ -23,7 +23,7 @@ jobs:
         script: |
           cd ${{ secrets.APP_LOCATION}}
           git pull
-          npm run build
+          npm run install
           systemctl restart rubberlover
     - name:  Print stuff
       run: echo "All done!"
