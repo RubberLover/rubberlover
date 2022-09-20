@@ -24,6 +24,6 @@ jobs:
           cd ${{ secrets.APP_LOCATION}}
           git pull
           npm install
-          systemctl restart rubberlover
+          systemctl restart api.rubberlover.service
     - name:  Print stuff
       run: echo "All done!"
