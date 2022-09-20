@@ -53,7 +53,7 @@
             <th *ngIf="selectedColumns.includes('Made In')" [pSortableColumn]="'countryManufactured'">Made In <p-sortIcon field="countryManufactured"></p-sortIcon></th>
             <th *ngIf="selectedColumns.includes('Year')" [pSortableColumn]="'year'">Year <p-sortIcon field="year"></p-sortIcon></th>
             <th class="sources-column" *ngIf="selectedColumns.includes('Sources')">Sources</th>
-            <th *ngIf="selectedColumns.includes('BBR Article')">BRR Article</th>
+            <th *ngIf="selectedColumns.includes('BRR Article')">BRR Article</th>
 
             <th [pSortableColumn]="'approved'">Verified <p-sortIcon field="approved"></p-sortIcon><p-columnFilter type="boolean" field="approved" display="menu"></p-columnFilter></th>
 
@@ -81,7 +81,7 @@
             </td>
             <td *ngIf="selectedColumns.includes('BRR Article')" >
                <a href="{{tire.bicycleRollingResistanceArticle}}" class="source" target="_blank">
-                {{tire.bicycleRollingResistanceArticle | toPrettyUrl}}
+                Link
                </a>
             </td>
             <td>
