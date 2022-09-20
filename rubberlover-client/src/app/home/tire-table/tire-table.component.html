@@ -80,7 +80,7 @@
                 </a>
             </td>
             <td *ngIf="selectedColumns.includes('BRR Article')" >
-               <a href="{{tire.bicycleRollingResistanceArticle}}" class="source" target="_blank">
+               <a *ngIf="tire.bicycleRollingResistanceArticle" href="{{tire.bicycleRollingResistanceArticle}}" class="source" target="_blank">
                 Link
                </a>
             </td>
