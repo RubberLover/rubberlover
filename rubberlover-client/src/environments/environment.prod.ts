@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://www.rubberlover.xyz/api/v1"
+  apiUrl: "https://api.rubberlover.xyz/api/v1"
 };
