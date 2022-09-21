@@ -3,4 +3,6 @@
     <div *ngIf="(currentUserName | async) === ''" class="toolbar-item right" [routerLink]="'/login'">Login</div>
     <div *ngIf="currentUserName | async" class="toolbar-item right" (click)="logout()">Logout</div>
 </div>
-<router-outlet></router-outlet>
+<router-outlet>
+    <p-toast [preventOpenDuplicates]="true" position="bottom-center"></p-toast>
+</router-outlet>

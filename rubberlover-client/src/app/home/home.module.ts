@@ -16,7 +16,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
-import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { CreateTireDialogComponent } from './create-tire-dialog/create-tire-dialog.component';
 import { HomeComponent } from './home/home.component';
@@ -47,7 +46,6 @@ import { WidthAsMeasuredFormComponent } from './tire/wam/width-as-measured-form/
     CommonModule,
     TableModule,
     DialogModule,
-    ToastModule,
     BrowserAnimationsModule,
     ButtonModule,
     FormsModule,
