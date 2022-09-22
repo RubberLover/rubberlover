@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Tire } from '../home/tire.model';
 import { JwtService } from './jwt.service';
 import { User } from './models/user.model';
 
@@ -48,6 +47,24 @@ export class UserService {
       }));
   }
 
+  public resetPassword(token: string, userId: string, newPassword: string) {
+    let body = {
+      "userId": userId,
+      "token": token,
+      "password": newPassword
+    }
+    return this._httpClient.post<any>(`${this.baseUrl}/users/resetPassword`, body)
+      .pipe(tap((result) => {
+      }));
+  }
+
+  public forgotPassword(email: string) {
+    let body = {
+      "emailAddress": email
+    }
+    return this._httpClient.post<any>(`${this.baseUrl}/users/forgotpassword`, body);
+  }
+
   public checkLocalStorage() {
     const token = this._jwt.parseToken();
     if (token) {
@@ -69,11 +86,5 @@ export class UserService {
       id: result["id"]
     });
     this._router.navigate(["/"]);
-  }
-
-  public canEditTire(tire: Tire): boolean {
-    if (this.currentUser$?.value?.role === 'admin') return true;
-    if (this.currentUser$?.value?.id === tire.createdBy) return true;
-    return false;
   }
 }

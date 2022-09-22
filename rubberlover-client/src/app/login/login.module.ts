@@ -1,19 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthInterceptor } from './auth.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {InputTextModule} from 'primeng/inputtext'
-import {ButtonModule} from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { AuthInterceptor } from './auth.interceptor';
 import { LoginComponent } from './components/login/login.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PasswordResetComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +25,8 @@ import { RegisterComponent } from './components/register/register.component';
     ReactiveFormsModule,
     RouterModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    PasswordModule
   ],
   providers: [
     {

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserService } from '../login/user.service';
 import { Tire } from './tire.model';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class TireService {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient, private _userService: UserService) { }
 
   headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
@@ -43,4 +44,12 @@ export class TireService {
 
   public deleteTire(id: string): Observable<string> {
     return this._httpClient.delete<string>(`${this.baseUrl}/tires/${id}`, {responseType: 'text' as 'json'});
-  }}
+  }
+
+  public canEditTire(tire: Tire): boolean {
+    if (this._userService.currentUser$?.value?.role === 'admin') return true;
+    if (this._userService.currentUser$?.value?.id === tire.createdBy) return true;
+    return false;
+  }
+
+}

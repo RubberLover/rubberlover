@@ -85,7 +85,7 @@ export class TireTableComponent implements OnInit {
   }
 
   canEditTire(tire: Tire) {
-    return this._userService.canEditTire(tire);
+    return this._tireSerivce.canEditTire(tire);
   }
 
   filterCallback(event: any) {

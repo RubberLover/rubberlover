@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../../user.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
 
-  result: string = "";
+  error$: BehaviorSubject<string> = new BehaviorSubject("");
+  result$: BehaviorSubject<string> = new BehaviorSubject("");
 
   form: FormGroup;
 
@@ -28,9 +30,21 @@ export class LoginComponent implements OnInit {
 
   login() {
     this._userService.login(this.form.get("email")?.value, this.form.get("password")?.value)
-      .subscribe(result => {
-        this.result = result;
-    });
+      .subscribe({
+        error: (_: any) => {
+          this.error$.next("Sorry, that username or password isn't right.")
+        }
+      });
   }
 
+  forgotPassword() {
+    if (this.result$.value.length === 0) {
+      let email = this.form.get("email")?.value;
+      if (email) {
+        this._userService.forgotPassword(email).subscribe(res => {
+          this.result$.next(`An email was sent to ${email} with instructions to reset your password`);
+        })
+      } else this.error$.next("Enter your email.")
+    }
+  }
 }

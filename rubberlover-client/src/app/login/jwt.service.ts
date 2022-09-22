@@ -31,11 +31,19 @@ export class JwtService {
     const token = this.getToken();
     if (token) {
       let helper = new JwtHelperService();
-      const decodedToken = helper.decodeToken(token);
-      if (decodedToken) {
-        if (!helper.isTokenExpired(token)) {
-          return decodedToken;
+      try {
+        const decodedToken = helper.decodeToken(token);
+        if (decodedToken) {
+          if (!helper.isTokenExpired(token)) {
+            return decodedToken;
+          }
+          else {
+            //should probably re-route to login page..
+          }
         }
+      }
+      catch {
+          //should re-reoute to login
       }
     }
     return "";

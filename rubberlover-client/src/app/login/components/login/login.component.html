@@ -19,13 +19,16 @@
             type="submit"
             [disabled]="!form.valid" ></button>
     </form>
+    <div class="login-fail" *ngIf="error$.value">
+        {{error$.value}}
+        <a style="text-decoration:underline; cursor:pointer" (click)="forgotPassword()">Forgot password?</a>
+    </div>
+    <div class="register-text" *ngIf="result$.value">{{result$.value}}</div>
     <div class="register-text">
         <span>
             Don't have an account? <a [routerLink]="['/register']" routerLinkActive="router-link-active">Register.</a>
         </span>
     </div>
-
-    <p>{{result}}</p>
 </div>
 
 
