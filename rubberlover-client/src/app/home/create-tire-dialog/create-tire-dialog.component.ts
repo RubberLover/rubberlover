@@ -90,11 +90,13 @@ export class CreateTireDialogComponent {
 
   approve() {
     if (this.isAdmin) {
-      this._tireService.approve(this.form.controls['_id'].value).subscribe(result => {
-        if (result) {
-          this.tireSaved.emit();
-        }
-      });
+      this._confirmationService.confirm({message: "Are you sure you want to verify this tire?", accept: () => {
+        this._tireService.approve(this.form.controls['_id'].value).subscribe(result => {
+          if (result) {
+            this.tireSaved.emit();
+          }
+        });
+      }})
     }
   }
 
