@@ -23,12 +23,12 @@ router.post('/register', async (req: Request, res: Response) => {
   if (user) {
     bcrypt.hash(user.password, 10).then(async (hash: string) => {
       user.password = hash;
-      const maxAge = 24 * 60 * 60;
+      const maxAge = 60 * 24 * 7;
       const token = jwt.sign(
         { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
         jwtSecret,
         {
-          expiresIn: maxAge, // 3hrs in sec
+          expiresIn: maxAge, // 7 days in sec
         },
       );
       try {
@@ -81,12 +81,12 @@ router.post('/login', async (req: Request, res: Response) => {
       // comparing given password with hashed password
       bcrypt.compare(password, user.password).then(function (result) {
         if (result) {
-          const maxAge = 24 * 60 * 60;
+          const maxAge = 60 * 24 * 7;
           const token = jwt.sign(
             { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
             jwtSecret,
             {
-              expiresIn: maxAge, // 3hrs in sec
+              expiresIn: maxAge, // 7 days in sec
             },
           );
           res.status(200).json({
