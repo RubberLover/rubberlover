@@ -115,6 +115,15 @@
         <button
              pButton
              type="button"
+             label="Save As New"
+             class="form-button p-button-warning"
+             (click)="saveAsNew()"
+             *ngIf="tire"
+             [disabled]="!form.valid"
+              ></button>
+        <button
+             pButton
+             type="button"
              class="p-button-text form-button"
              (click)="approve()"
              [hidden]="!isAdmin"

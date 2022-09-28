@@ -53,11 +53,11 @@ export class CreateTireDialogComponent {
   ngOnChanges(_: SimpleChanges) {
     if (this.tire) {
       this.form.patchValue(this.tire);
-      this.form.controls['name'].disable();
-      this.form.controls['brand'].disable();
-      this.form.controls['width'].disable();
-      this.form.controls['widthUnits'].disable();
-      this.form.controls['wheelSize'].disable();
+      // this.form.controls['name'].disable();
+      // this.form.controls['brand'].disable();
+      // this.form.controls['width'].disable();
+      // this.form.controls['widthUnits'].disable();
+      // this.form.controls['wheelSize'].disable();
       
       this.sourcesArray.clear();
       this.tire.sources.forEach(source => {
@@ -77,7 +77,12 @@ export class CreateTireDialogComponent {
         }
       });
     } else { //otherwise we're creating a new one
-      this.form.removeControl('_id');
+      this.saveAsNew();
+    }
+  }
+
+  saveAsNew() {
+    this.form.removeControl('_id');
       this._tireService.submitTire(this.form.getRawValue()).subscribe(result => {
         if (result) {
           this.tireSaved.emit();
@@ -85,7 +90,6 @@ export class CreateTireDialogComponent {
           this.sourcesArray.reset();
         }
       });
-    }
   }
 
   approve() {
