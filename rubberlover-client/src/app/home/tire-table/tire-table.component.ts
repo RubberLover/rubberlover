@@ -36,10 +36,10 @@ export class TireTableComponent implements OnInit {
 
     this.headers = [
       "Name", "Brand", "Weight", "Width",
-      "Wheel Size", "Tire Type", "Casing", "Color",
-      "Tread Pattern", "Made In", "Sources", "BRR Article", "Year"
+      "Wheel Size", "Tire Type", "Sources", "Color",
+      "Tread Pattern", "Made In", "Casing", "BRR Article", "Year"
     ]
-    this._selectedColumns = this.headers.slice(0,8);
+    this._selectedColumns = this.headers.slice(0,7);
     this._userService.currentUser$?.subscribe(user => {
       if (user) {
         this.isLoggedIn = true;
