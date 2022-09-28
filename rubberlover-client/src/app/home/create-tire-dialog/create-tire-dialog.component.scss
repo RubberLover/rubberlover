@@ -58,3 +58,13 @@
 input.ng-dirty.ng-invalid {
     color: red
   }
+
+  /* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 1000px) {
+    .form-fields {
+        flex-direction: column;
+    }
+    .vertical-divider {
+        display: none;
+    }
+}

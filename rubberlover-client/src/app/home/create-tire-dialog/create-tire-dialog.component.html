@@ -61,7 +61,7 @@
                         >Add Source</button>
                 </div>    
             </div>
-            <p-divider layout="vertical">
+            <p-divider class="vertical-divider" layout="vertical">
             </p-divider>
             <div class="optional-fields">
                 <p-divider align="center">
@@ -118,7 +118,7 @@
              class="p-button-text form-button"
              (click)="approve()"
              [hidden]="!isAdmin"
-             *ngIf="!tire?.approved"
+             *ngIf="tire && !tire?.approved"
              >Verify <i class="pi pi-check" style="margin-left:5px"></i>
              </button>
             <button
