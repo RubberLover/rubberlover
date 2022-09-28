@@ -88,7 +88,7 @@
             </td>
             <td>
                 <div class="verified-wrapper">
-                    <i *ngIf="tire.approved" class="pi pi-check verified" title="Verified by {{tire.approvedBy}}"></i>
+                    <i *ngIf="tire.approved" class="pi pi-check verified" title="Verified by {{tire.approvedBy}} on {{tire.dateApproved | date}}"></i>
                 </div>
             </td>
             <td class="edit-icon-column" *ngIf="isLoggedIn">

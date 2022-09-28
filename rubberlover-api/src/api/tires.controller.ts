@@ -57,7 +57,10 @@ router.put('/', authorAuth, async (req: Request, res: Response) => {
 });
 
 router.put('/approve', adminAuth, async (req: Request, res: Response) => {
-  TireModel.findByIdAndUpdate({ _id: req.body._id }, { approved: true, approvedBy: res.locals.name }, { new: true },
+  TireModel.findByIdAndUpdate({ _id: req.body._id }, { 
+    approved: true,
+    approvedBy: res.locals.name,
+    dateApproved: new Date()}, { new: true },
     function (err, tire) {
       if (err) {
         res.status(500).send(err);
