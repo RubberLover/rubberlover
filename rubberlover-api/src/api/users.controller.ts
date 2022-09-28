@@ -147,7 +147,6 @@ router.post('/forgotpassword', async (req: Request, res: Response) => {
 
   // const link = `${clientURL}/passwordReset?token=${resetToken}&id=${user._id}`;
   const link = `${process.env.BASE_URL}/passwordReset?token=${resetToken}&id=${user._id}`;
-  console.log(link);
   sendEmail(
     user.emailAddress,
     'Password Reset Request',

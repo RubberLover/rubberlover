@@ -87,10 +87,7 @@ export class TireTableComponent implements OnInit {
   canEditTire(tire: Tire) {
     return this._tireSerivce.canEditTire(tire);
   }
-
-  filterCallback(event: any) {
-    console.log(event);
-  }
+  
   navigateToTire(tireId: string) {
     this._router.navigate(['/tire/', tireId])
   }

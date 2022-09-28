@@ -20,7 +20,6 @@ export class PasswordResetComponent implements OnInit {
 
   constructor(private _userService: UserService, private _fb: FormBuilder, private _route: ActivatedRoute) { 
     this._route.queryParams.subscribe(params => {
-      console.log(params);
       this.token = params['token'];
       this.userId = params['id'];
     })

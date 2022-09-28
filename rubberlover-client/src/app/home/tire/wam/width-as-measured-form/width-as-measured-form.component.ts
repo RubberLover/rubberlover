@@ -29,7 +29,6 @@ export class WidthAsMeasuredFormComponent implements OnInit {
 
   submit() {
     if (this.tireId) {
-      console.log(this.form.getRawValue());
       let wam = this.form.getRawValue() as WamGeneric;
       wam.tireId = this.tireId;
       this._wamService.submitWam(wam).subscribe(result => {
