@@ -23,7 +23,7 @@ export class WamComponent implements OnInit {
 
   constructor(private _wamService: WamService, private _userService: UserService) { 
     this.$currentUser = this._userService.currentUser$;
-    this.canSubmit = this.$currentUser.value ? true : false; //need to be logged in to submit a measurement
+    this.canSubmit = !!this.$currentUser.value; //need to be logged in to submit a measurement
   }
 
   ngOnInit(): void {
@@ -72,9 +72,6 @@ export class WamComponent implements OnInit {
     if (wam.createdBy == this.$currentUser.value?.id) {
       return true;
     }
-    if (this.$currentUser.value?.role == 'admin') {
-      return true;
-    }
-    return false;
+    return this.$currentUser.value?.role == 'admin';
   }
 }

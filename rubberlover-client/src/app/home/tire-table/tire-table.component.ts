@@ -22,7 +22,7 @@ export class TireTableComponent implements OnInit {
   selectedWeightUnit: string = 'g';
   selectedTire!: Tire;
   editDialogShown = false;
-  isLoggedIn = false;; 
+  isLoggedIn = false;
   loading = false;
   tireBrands: string[] = [];
   wheelSizes: string[] = [];
@@ -41,12 +41,7 @@ export class TireTableComponent implements OnInit {
     ]
     this._selectedColumns = this.headers.slice(0,7);
     this._userService.currentUser$?.subscribe(user => {
-      if (user) {
-        this.isLoggedIn = true;
-      }
-      else {
-        this.isLoggedIn = false;
-      }
+      this.isLoggedIn = !!user;
     });
   }
   ngOnInit(): void {
@@ -107,13 +102,13 @@ export class TireTableComponent implements OnInit {
         else if (typeof value1 === 'string' && typeof value2 === 'string')
           result = value1.localeCompare(value2);
         else if (event.field === 'weight') { //pipe and then compare
-          let data1g = new ToSelectedUnitsPipe().transform(parseInt(value1.toString()), data1['weightUnits' as keyof Tire].toString(), 'g');
-          let data2g = new ToSelectedUnitsPipe().transform(parseInt(value2.toString()), data2['weightUnits' as keyof Tire].toString(), 'g');
+          let data1g = new ToSelectedUnitsPipe().transform(parseInt(value1?.toString()), data1['weightUnits' as keyof Tire].toString(), 'g');
+          let data2g = new ToSelectedUnitsPipe().transform(parseInt(value2?.toString()), data2['weightUnits' as keyof Tire].toString(), 'g');
           result = (data1g < data2g) ? -1 : (data1g > data2g) ? 1 : 0;
         }
         else if (event.field === 'width') { //pipe and then compare
-          let data1g = new ToSelectedUnitsPipe().transform(parseInt(value1.toString()), data1['widthUnits' as keyof Tire].toString(), 'mm');
-          let data2g = new ToSelectedUnitsPipe().transform(parseInt(value2.toString()), data2['widthUnits' as keyof Tire].toString(), 'mm');
+          let data1g = new ToSelectedUnitsPipe().transform(parseInt(value1?.toString()), data1['widthUnits' as keyof Tire].toString(), 'mm');
+          let data2g = new ToSelectedUnitsPipe().transform(parseInt(value2?.toString()), data2['widthUnits' as keyof Tire].toString(), 'mm');
           result = (data1g < data2g) ? -1 : (data1g > data2g) ? 1 : 0;
         }
         else 

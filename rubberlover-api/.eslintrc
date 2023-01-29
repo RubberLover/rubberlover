@@ -4,9 +4,14 @@
     "jest": true
   },
   "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": ["rubberlover-api/*.ts"]
+    }
+  ],
   "parserOptions": {
     "project": [
-      "./tsconfig.json"
+      "rubberlover-api/tsconfig.json"
     ]
   },
   "extends": "airbnb-typescript/base",
