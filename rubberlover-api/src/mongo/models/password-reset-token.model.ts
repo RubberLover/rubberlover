@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const tokenSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
-    ref: "user",
+    ref: 'user',
   },
   token: {
     type: String,
@@ -17,5 +17,5 @@ const tokenSchema = new mongoose.Schema({
     expires: 900,
   },
 });
-const PasswordResetTokenModel =  mongoose.model("Token", tokenSchema);
+const PasswordResetTokenModel =  mongoose.model('Token', tokenSchema);
 export default PasswordResetTokenModel;

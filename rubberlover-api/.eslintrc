@@ -11,7 +11,7 @@
   ],
   "parserOptions": {
     "project": [
-      "rubberlover-api/tsconfig.json"
+      "tsconfig.json"
     ]
   },
   "extends": "airbnb-typescript/base",

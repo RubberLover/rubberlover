@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 const sendEmail = async (email: string, subject: string, body: string) => {
   try {
