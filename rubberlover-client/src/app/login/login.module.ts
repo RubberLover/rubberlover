@@ -10,13 +10,15 @@ import { AuthInterceptor } from './auth.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { RegisterComponent } from './components/register/register.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    VerifyEmailComponent
   ],
   imports: [
     CommonModule,

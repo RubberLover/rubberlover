@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import jwtSecret from '../jwt';
 import { adminAuth } from '../middlewares';
+import EmailVerificationTokenModel from '../mongo/models/email-verification-token.model';
 import PasswordResetTokenModel from '../mongo/models/password-reset-token.model';
 import UserModel from '../mongo/models/user.model';
 import sendEmail from '../sendEmail';
@@ -23,23 +24,22 @@ router.post('/register', async (req: Request, res: Response) => {
   if (user) {
     bcrypt.hash(user.password, 10).then(async (hash: string) => {
       user.password = hash;
-      const maxAge = 60 * 24 * 7;
-      const token = jwt.sign(
-        { id: user._id, name: user.name, emailAddress: user.emailAddress, role: user.role },
-        jwtSecret,
-        {
-          expiresIn: maxAge, // 7 days in sec
-        },
-      );
       try {
         await user.save();
+        try {
+          const token = crypto.randomBytes(16).toString('hex');
+          const emailVerification = new EmailVerificationTokenModel({ userId: user._id, token: token });
+          await emailVerification.save();
+          const link = `${process.env.BASE_URL}/emailVerification?token=${token}`;
+          sendEmail(user.emailAddress,
+            'Verify your RubberLover account',
+            `<p>Thanks for creating an account on RubberLover!</p>
+            <p>Click <a href="${link}">this link</a> to verify your email and login.</p>`);
+        } catch (error: any) {
+          res.status(500).send('Error generating email verification');
+        }
         res.status(200).json({
-          message: 'Registration successful',
-          emailAddress: user.emailAddress,
-          name: user.name,
-          role: user.role,
-          id: user._id,
-          token: token,
+          message: 'Registration successful. Please click the link in your email verification. ',
         });
       } catch (error: any) {
         if (error.code == 11000) {
@@ -59,7 +59,6 @@ router.post('/register', async (req: Request, res: Response) => {
   } else {
     console.log('dups');
   }
-    
 });
 
 router.post('/login', async (req: Request, res: Response) => {
@@ -78,6 +77,13 @@ router.post('/login', async (req: Request, res: Response) => {
         error: 'Invalid username/password combo',
       });
     } else {
+      if (user.active == false) {
+        res.status(400).json({ 
+          message: 'Login not successful',
+          error: 'Email not verified',
+        });
+        return;
+      }
       // comparing given password with hashed password
       bcrypt.compare(password, user.password).then(function (result) {
         if (result) {
@@ -154,6 +160,29 @@ router.post('/forgotpassword', async (req: Request, res: Response) => {
     <p>If that wasn't you, you can safely ignore this email.</p>
     <p>Otherwise, you can click <a href="${link}">this link</a> to reset your password.</p>`);
   res.status(200).json({ message: 'success' });
+});
+
+router.post('/emailverification', async (req: Request, res: Response) => { 
+  const token = req.query.token;
+
+  let foundToken = await EmailVerificationTokenModel.findOne({ token: token });
+  if (foundToken == null) {
+    res.status(400).json({ message: 'Invalid verification token' });
+    return;
+  }
+  let user = await UserModel.findOne({ _id: foundToken?.userId });
+  if (user == null) {
+    res.status(400).json({ message: 'User not found' });
+    return;
+  } 
+  try {
+    user.active = true;
+    await user.save();
+    await foundToken?.deleteOne();
+    res.status(200).json({ message: 'success' });
+  } catch (error: any) {
+    res.status(500).json({ message: 'Unable to verify user' });
+  }
 });
 
 export default router;

@@ -14,8 +14,7 @@ const tokenSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
-    expires: 900,
   },
 });
-const PasswordResetTokenModel =  mongoose.model('PasswordResetToken', tokenSchema);
-export default PasswordResetTokenModel;
+const EmailVerificationTokenModel =  mongoose.model('EmailVerificationToken', tokenSchema);
+export default EmailVerificationTokenModel;

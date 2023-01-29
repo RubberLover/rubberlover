@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       this.form.get("email")?.value,
       this.form.get("password")?.value)
       .subscribe(result => {
-        this.result = result;
+        this.result = result.message;
     });
   }
 }

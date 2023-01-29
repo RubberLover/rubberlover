@@ -1,0 +1,7 @@
+<div class="content" *ngIf="verified">
+    <p>Your email was verified!</p>
+    <p>Please <a routerLink="/login">login</a></p>
+</div>
+<div class="content" *ngIf="error">
+    <p>Your email was unable to be verified.</p>
+</div>

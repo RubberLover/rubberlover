@@ -41,10 +41,7 @@ export class UserService {
       "emailAddress": email,
       "password": password
     }
-    return this._httpClient.post<any>(`${this.baseUrl}/users/register`, body)
-      .pipe(tap((result) => {
-        this.handleLoginResponse(result)
-      }));
+    return this._httpClient.post<any>(`${this.baseUrl}/users/register`, body);
   }
 
   public resetPassword(token: string, userId: string, newPassword: string) {
@@ -63,6 +60,10 @@ export class UserService {
       "emailAddress": email
     }
     return this._httpClient.post<any>(`${this.baseUrl}/users/forgotpassword`, body);
+  }
+
+  public verifyEmail(token: string) {
+    return this._httpClient.post<any>(`${this.baseUrl}/users/emailverification?token=${token}`, null);
   }
 
   public checkLocalStorage() {
